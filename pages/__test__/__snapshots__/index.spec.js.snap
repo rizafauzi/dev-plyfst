@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`index.vue should render correctly 1`] = `
+<div
+  class="container"
+>
+  <navbar-section-stub />
+   
+  <showcase-stub />
+   
+  <footer-section-stub />
+</div>
+`;
