@@ -32,21 +32,21 @@ exports[`Showcase.vue should render correctly 1`] = `
               <img
                 alt="Narasi"
                 class="narasi-logo"
-                src="~/static/logo.png"
+                src="~/static/logo/narasi-brandmark-primary-yellow.png"
               />
             </div>
              
             <img
               alt="Playfest"
               class="playfest-logo"
-              src="~/static/playfest.png"
+              src="~/static/logo/playfest.png"
             />
              
             <div
               class="desc-mobile"
             >
               <p>
-                See more, experience many
+                Playfest Development
               </p>
             </div>
           </div>
@@ -56,9 +56,7 @@ exports[`Showcase.vue should render correctly 1`] = `
           class="desc"
         >
           <span>
-            See more,
-            <br />
-            experience many
+            Playfest Development
           </span>
         </div>
       </div>

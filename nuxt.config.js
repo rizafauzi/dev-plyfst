@@ -12,7 +12,7 @@ module.exports = {
 		meta: [
 			{ charset: 'utf-8' },
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
-			{ hid: 'description', name: 'description', content: 'See More, Experience Many' }
+			{ hid: 'description', name: 'description', content: 'Playfest Development' }
 		],
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
