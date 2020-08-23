@@ -47,10 +47,35 @@ module.exports = {
 	/*
 	** Nuxt.js modules
 	*/
+
+	auth: {
+		redirect: {
+			login: '/',
+			logout: '/',
+			home: '/home'
+		},
+		strategies: {
+			local: {
+				endpoints: {
+					login: {
+						url: "/user/login",
+						method: "post",
+						propertyName: "data.token",
+					},
+					logout: false,
+					user: false,
+				},
+				tokenType: '',
+				tokenName: 'x-auth',
+				autoFetchUser: false
+			},
+		},
+	},
 	
 	modules: [
 		// Doc: https://github.com/nuxt-community/axios-module#usage
 		'@nuxtjs/tailwindcss',
+		'@nuxtjs/auth',
 		'@nuxtjs/axios',
 		'@nuxtjs/bulma',
 		[
@@ -69,9 +94,11 @@ module.exports = {
 	** Axios module configuration
 	*/
 	axios: {
-		baseURL: 'https://playfest-api.narasi.tv'
+		baseURL: 'https://89f9b6ee-c9d1-4fe6-97ee-23885f153b11.mock.pstmn.io'
 		// See https://github.com/nuxt-community/axios-module#options
 	},
+
+
 
 	/*
 	** Build configuration

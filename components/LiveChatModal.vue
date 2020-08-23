@@ -1,33 +1,67 @@
 <template>
-  <div v-if="showLiveChatModal" class="modal-container">
-    <div class="backdrop" @click="toggleLiveChatModal()" />
-    <div class="modal-content" v-bind:id="[showLiveChatModal ? 'show' : 'hide']">
-      <div class="close-container">
-        <div class="close-button" @click="toggleLiveChatModal()">
-          <img 
-            class="icon-close"
-            src="~/static/icon/cancel.png" 
-            alt="cek"
-          >
-        </div>
-      </div>
-      <div class="modal-description">
-        <h2>
-          All live chat area are on portrait layout. Please rotate your phone for best experience.
-        </h2>
-        <div class="button-container">
-          <div @click="toggleLiveChatModal()" class="modal-button">
-            <h1>Continue</h1>
+  <div>
+    <div v-if="device === 'MOBILE'">
+      <div v-if="showLiveChatModal" class="modal-container">
+        <div class="backdrop" @click="toggleLiveChatModal()" />
+
+        <div class="modal-content" v-bind:id="[showLiveChatModal ? 'show' : 'hide']">
+          <div class="close-container">
+            <div class="close-button" @click="toggleLiveChatModal()">
+              <img 
+                class="icon-close"
+                src="~/static/icon/cancel.png" 
+                alt="cek"
+              >
+            </div>
+          </div>
+          <div class="modal-description">
+            <h2>
+              All live chat area are on portrait layout. Please rotate your phone for best experience.
+            </h2>
+            <div class="button-container">
+              <div @click="toggleLiveChatModal()" class="modal-button">
+                <h1>Continue</h1>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div v-else>
+      <SideLiveChat 
+        :dataState="dataState"
+        :showModal="showLiveChatModal" 
+        :modalToggle="toggleLiveChatModal"
+      />
+    </div>
   </div>
+  
+  
 </template>
 
 <script>
+import SideLiveChat from './SideLiveChat.vue'
 export default {
+  components: {
+    SideLiveChat
+  },
+  data() {
+    return {
+      device: this.$store.getters['app/getDevice'],
+      currentRoute: 'ENTERTAIMENT AREA',
+      routing: [
+        {title: 'IDEAS AREA', route: '/ideas-area'}, 
+        {title: 'ART AREA', route: '/art-area'}
+      ],
+    }
+  },
   props: {
+    dataState: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
     showLiveChatModal: {
 			type: Boolean,
 			default() {
@@ -37,22 +71,6 @@ export default {
     toggleLiveChatModal: {
 			type: Function
 		},
-  },
-	methods: {
-		isDesktop() {
-        if (process.browser) {
-            if (window.innerWidth >= 1024) {
-                return true
-            }
-        }
-    },
-    isMobile() {
-      if (process.browser) {
-          if (window.innerWidth <= 768) {
-              return true
-          }
-      }
-    },
   },
   mounted() {
     this.toggleLiveChatModal()

@@ -75,7 +75,7 @@ export default {
         {title: 'ENTERTAINMENT AREA', route: '/entertainment-area'},
         {title: 'IDEAS AREA', route: '/ideas-area'}, 
       ],
-      sideBar: ['RUNDOWN', 'MAIN MAP', 'MODE'],
+      sideBar: this.$store.getters['app/getDevice'] === 'DESKTOP' ? ['RUNDOWN', 'MAIN MAP'] : ['RUNDOWN', 'MAIN MAP', 'MODE'],
       dataState: dummyData
 		}
   },
@@ -97,7 +97,7 @@ export default {
           this.showOrientationModal = true
           break;
         case 'MAIN MAP':
-          this.$router.replace({  path: '/' })
+          this.$router.replace({  path: '/home' })
           break;
       }
     },

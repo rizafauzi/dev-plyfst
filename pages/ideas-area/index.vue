@@ -20,7 +20,6 @@
     />
 
     <div @click="toggleNetworkModal()">
-
       <PrimaryMapMarker class="area-title" id="network-lounge"/>
     </div>
 
@@ -103,7 +102,7 @@ export default {
           this.showRundownModal = !this.showRundownModal
           break;
         case 'MAIN MAP':
-          this.$router.replace({  path: '/' })
+          this.$router.replace({  path: '/home' })
           break;
         case 'LIVE CHAT':
           this.showLiveChatModal = !this.showLiveChatModal
@@ -180,12 +179,6 @@ export default {
   border-radius: 125px;
   flex-direction: column;
   justify-content: center;
-}
-
-.area-title:hover {
-  cursor: pointer;
-  -webkit-filter: drop-shadow(5px 5px 5px #FFFFFF);
-  filter: drop-shadow(0px 5px 10px #FFFFFF);
 }
 
 #network-lounge.area-title {

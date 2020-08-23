@@ -15,7 +15,7 @@
             </div>
           </div>
           <div class="shortcut-modal" >
-            <div @click="$router.replace({ path: '/' })" >
+            <div @click="$router.replace({ path: '/home' })" >
               <div class="main-map-shortcut">
                 <img 
                   class="background-button"
@@ -29,7 +29,7 @@
             </div>
             <span class="sm:text-xxs lg:text-xl">MAP OF OTHER AREAS</span>
 
-            <div v-for="item in routing" :key="item.title" >
+            <div v-for="(item, index) in routing" :key="index" >
               <div @click="$router.replace({ path: item.route })" >
                 <div class="area-shortcut">
                   <img 

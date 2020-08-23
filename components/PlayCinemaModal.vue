@@ -18,13 +18,19 @@
           <div class="cinema-content">
             <div 
               class="cinema-each"
-              @click="$router.replace({ path: `/art-area/play-cinema` })" 
+              @click="onSelect(data.url_video)" 
               v-for="(data, index) in dataState" 
               :key="`${index}`" 
             >
-              <div class="cinema-image" />
+              <div class="cinema-image">
+                <img 
+                  class="cinema-image-detail"
+                  :src="data.url_image" 
+                  alt="cek"
+                >
+              </div>
               <div class="cinema-description">
-                <p class="sm:text-xs lg:text-sm xl:text-tiny">{{data.description}}</p>
+                <p class="sm:text-xs lg:text-sm xl:text-tiny">{{ data.description.length > 250 ? `${data.description.slice(0, 250)}...` : data.description }}</p>
               </div>
             </div>
           </div>
@@ -46,22 +52,9 @@ export default {
   data() {
     return {
       dataState: [
-        {
-          id: 1,
-          image: '',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
-        },
-        {
-          id: 2,
-          image: '',
-          description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
-        },
-        {
-          id: 3,
-          image: '',
-          description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur'
-        },
-      ]
+        { url_image: '', url_video: '', description: '' }, 
+        { url_image: '', url_video: '', description: '' }, 
+        { url_image: '', url_video: '', description: '' }]
     }
   },
   props: {
@@ -73,7 +66,17 @@ export default {
 		},
     toggleCinemaModal: {
 			type: Function
-		},
+    },
+  },
+  async fetch() {
+    let { data } = await this.$axios.get("/play-cinema");
+    this.dataState = data
+  },
+  methods: {
+    onSelect(url) {
+      this.$store.dispatch('currentPlaying/setCurrentPlaying', url)
+      this.$router.replace({ path: `/art-area/play-cinema` })
+    }
   },
   mounted() {
     this.toggleCinemaModal()
@@ -149,6 +152,12 @@ export default {
         display: flex;
         border-radius: 10px;
         background: #FFFFFF;
+        .cinema-image-detail {
+          border-radius: 10px;
+          width: 100%;
+          overflow: hidden;
+          object-fit: cover;
+        }
       }
       .cinema-description {
         padding: 3%;
@@ -193,7 +202,7 @@ export default {
 p {
   color: #FFFFFF;
   font-weight: bold;
-  line-height: 200%;
+  line-height: 170%;
   font-style: normal;
   letter-spacing: 0.1em;
   font-family: 'Narasi Sans Light';

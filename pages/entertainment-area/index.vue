@@ -117,7 +117,7 @@ export default {
           this.showRundownModal = !this.showRundownModal
           break;
         case 'MAIN MAP':
-          this.$router.replace({  path: '/' })
+          this.$router.replace({  path: '/home' })
           break;
         case 'LIVE CHAT':
           this.showLiveChatModal = !this.showLiveChatModal

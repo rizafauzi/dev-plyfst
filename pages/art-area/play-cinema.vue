@@ -10,6 +10,16 @@
       <BackButton />
     </div>
 
+    <div class="current-playing">
+      <iframe 
+        class="iframe"
+        :src="currentPlaying" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+    </div>
+
     <SideBar 
       :dataState="sideBar" 
       :handleAction="handleAction"
@@ -66,12 +76,13 @@ export default {
       showRundownModal: true,
       showOrientationModal: true,
       currentRoute: 'CINEMA AREA',
+      currentPlaying: this.$store.state.currentPlaying.url_video,
       routing: [
         {title: 'ENTERTAINMENT AREA', route: '/art-area'},
         {title: 'ENTERTAINMENT AREA', route: '/entertainment-area'},
         {title: 'IDEAS AREA', route: '/ideas-area'}, 
       ],
-      sideBar: ['RUNDOWN', 'MAIN MAP', 'MODE'],
+      sideBar: this.$store.getters['app/getDevice'] === 'DESKTOP' ? ['RUNDOWN', 'MAIN MAP'] : ['RUNDOWN', 'MAIN MAP', 'MODE'],
       dataState: dummyData
 		}
   },
@@ -93,16 +104,9 @@ export default {
           this.showOrientationModal = true
           break;
         case 'MAIN MAP':
-          this.$router.replace({  path: '/' })
+          this.$router.replace({  path: '/home' })
           break;
       }
-    },
-		isDesktop() {
-        if (process.browser) {
-            if (window.innerWidth >= 1024) {
-                return true
-            }
-        }
     },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal
@@ -112,16 +116,6 @@ export default {
     },
     addNewMessage(newMessage) {
       this.dataState.push(newMessage)
-    },
-    isMobile() {
-      if (process.browser) {
-          if (window.innerWidth <= 768) {
-              return true
-          }
-      }
-    },
-    selectArtArea() {
-      console.log('MASUK CUY')
     },
 	}
 }
@@ -144,6 +138,26 @@ export default {
     position: fixed;
     overflow: hidden;
     object-fit: cover;
+  }
+  .current-playing {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    height: 100vh;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    .iframe {
+      width: 34%;
+      height: 35%;
+      @media (max-width: 1024px) {
+        width: 45%;
+        height: 35%;
+      }
+    }
   }
 }
 

@@ -20,6 +20,12 @@ export default {
   components: {
     SvgLoader,
   },
+  data() {
+    return {
+      showChatModal: false,
+      device: this.$store.getters['app/getDevice']
+    }
+  },
   props: {
     dataState: {
       Type: Array,

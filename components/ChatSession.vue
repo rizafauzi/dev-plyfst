@@ -161,7 +161,7 @@ h1 {
   font-family: 'Narasi Sans Bold';
   filter: drop-shadow(0px 0px 5px #4B2D69);
   @media (max-width: 1100px) {
-    font-size: 20px;
+    font-size: 16px;
   }
 }
 

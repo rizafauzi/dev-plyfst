@@ -33,6 +33,7 @@
     />
 
     <LiveChatModal 
+      :dataState="dataState"
       :showLiveChatModal="showLiveChatModal" 
       :toggleLiveChatModal="toggleLiveChatModal"
     />
@@ -56,6 +57,7 @@ import PlayCinemaModal from '../../components/PlayCinemaModal.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
 import BubbleChatButton from '../../components/BubbleChatButton.vue'
 import PrimaryMapMarker from '../../components/PrimaryMapMarker.vue'
+import dummyData from './state'
 export default {
   components: {
     SideBar,
@@ -71,6 +73,7 @@ export default {
   },
   data() {
 		return {
+      dataState: dummyData,
       showCinemaModal: true,
       showRundownModal: true,
       showLiveChatModal: true,
@@ -97,7 +100,7 @@ export default {
           this.showRundownModal = !this.showRundownModal
           break;
         case 'MAIN MAP':
-          this.$router.replace({  path: '/' })
+          this.$router.replace({  path: '/home' })
           break;
         case 'LIVE CHAT':
           this.showLiveChatModal = !this.showLiveChatModal
