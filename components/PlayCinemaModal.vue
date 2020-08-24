@@ -7,7 +7,7 @@
         <img 
           class="cinema-background"
           src="~/static/img/background-map-1440x900.png" 
-          alt="cek"
+          alt="image"
         >
         <div class="cinema-container" >
           <div class="cinema-header">
@@ -26,7 +26,7 @@
                 <img 
                   class="cinema-image-detail"
                   :src="data.url_image" 
-                  alt="cek"
+                  alt="image"
                 >
               </div>
               <div class="cinema-description">
@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     onSelect(url) {
-      this.$store.dispatch('currentPlaying/setCurrentPlaying', url)
+      this.$store.dispatch('currentPlaying/setPlaycinema', url)
       this.$router.replace({ path: `/art-area/play-cinema` })
     }
   },

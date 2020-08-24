@@ -3,12 +3,14 @@
     <img 
       class="background"
       src="~/static/img/play-stage-indoor.png" 
-      alt="cek"
+      alt="image"
     >
     <!-- <WatchNow /> -->
     <div @click="$router.replace({  path: '/entertainment-area' })">
       <BackButton />
     </div>
+
+    <CurrentPlaying :currentPlaying="currentPlaying"/>
 
     <SideBar 
       :dataState="sideBar" 
@@ -46,6 +48,7 @@ import WatchNow from '../../components/WatchNow.vue'
 import BackButton from '../../components/BackButton.vue'
 import ChatSession from '../../components/ChatSession.vue'
 import RundownModal from '../../components/RundownModal.vue'
+import CurrentPlaying from '../../components/CurrentPlaying.vue'
 import StreamingModal from '../../components/StreamingModal.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
 import OrientationModal from '../../components/OrientationModal.vue'
@@ -59,6 +62,7 @@ export default {
     BackButton,
     ChatSession,
     RundownModal,
+    CurrentPlaying,
     StreamingModal,
     NavigationModal,
     OrientationModal,
@@ -69,7 +73,8 @@ export default {
 		return {
       showRundownModal: true,
       showOrientationModal: true,
-      currentRoute: 'CINEMA AREA',
+      currentRoute: 'MAIN STAGE AREA',
+      currentPlaying: this.$store.state.currentPlaying.url_playstage,
       routing: [
         {title: 'ENTERTAINMENT AREA', route: '/art-area'},
         {title: 'ENTERTAINMENT AREA', route: '/entertainment-area'},

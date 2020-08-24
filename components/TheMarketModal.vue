@@ -7,7 +7,7 @@
         <img 
           class="market-background"
           src="~/static/img/background-map-1440x900.png" 
-          alt="cek"
+          alt="image"
         >
         <div class="market-container" >
           <div class="market-header">
@@ -27,13 +27,13 @@
                   v-if="data.title === 'FOOD & BEVERAGE'"
                   class="market-building"
                   src="~/static/img/fb-building.png" 
-                  alt="cek"
+                  alt="image"
                 >
                 <img 
                   v-if="data.title === 'MERCHANDISE'"
                   class="market-building"
                   src="~/static/img/merch-building.png" 
-                  alt="cek"
+                  alt="image"
                 >
                 <span class="sm:text-sm lg:text-lg xl:text-2xl">{{data.title}}</span>
               </div>

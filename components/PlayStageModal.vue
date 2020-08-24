@@ -6,7 +6,7 @@
       <img 
         class="playstage-background"
         src="~/static/img/background-map-1440x900.png" 
-        alt="cek"
+        alt="image"
       >
       <div class="playstage-container" >
         <div class="playstage-header">
@@ -20,14 +20,14 @@
               <img 
                 class="playstage-building"
                 src="~/static/img/play-stage-building.png" 
-                alt="cek"
+                alt="image"
               >
               <span class="title-building sm:text-sm lg:text-lg xl:text-2xl">PLAY STAGE</span>
             </div>
             <div 
               v-for="(data, index) in dataState.slice(1)" :key="index" 
               class="playstage-description">
-              <span>{{ index === 0 ? `UP NEXT : ${data.artist}` : `${data.start_time} - ${data.end_time} : ${data.artist}`}}</span>
+              <span>{{ index === 0 ? `UP NEXT : ${data.name}` : `${data.start_time} - ${data.end_time} : ${data.name}`}}</span>
             </div>
             <div class="playstage-description" id="rundown">
               <span id="purple">VIEW FULL RUNDOWN</span>
@@ -36,13 +36,20 @@
           <div class="current-playstage">
             <div class="live-now-wrapper">
               <div class="image-wrapper">
+                <img 
+                  v-if="dataState[0].url_image !== ''"
+                  class="image-detail"
+                  :src="dataState[0].url_image" 
+                  alt="image"
+                >
+                <Loader v-else class="loading"/>
               </div>
               <div class="title-wrapper">
                 <div class="time-description">
                   <h2>{{ dataState.length > 0 ? `LIVE NOW | ${dataState[0].start_time} - ${dataState[0].end_time} WIB` : 'OFF'}}</h2>
                 </div>
                 <div class="artist-title">
-                  <h2>{{ dataState.length > 0 ? `${dataState[0].artist}` : 'OFF'}}</h2>
+                  <h2>{{ dataState.length > 0 ? `${dataState[0].name}` : 'OFF'}}</h2>
                 </div>
               </div>
             </div>
@@ -52,7 +59,7 @@
               </div>
               <div class="button-wrapper">
                 <div class="enter-button">
-                  <div @click="$router.replace({  path: '/entertainment-area/play-stage' })">
+                  <div @click="onSelect(dataState[0].url_video)">
                     <h2 id="purple">ENTER AREA</h2>
                   </div>
                 </div>
@@ -66,46 +73,34 @@
 </template>
 
 <script>
+import Loader from './Loader.vue'
 import WatchNow from './WatchNow.vue'
 import BackButton from './BackButton.vue'
 
 export default {
   components: {
+    Loader,
     WatchNow,
     BackButton
   },
   data() {
     return {
       dataState: [
-        {
-          id: 1,
-          start_time: '16.00',
-          end_time: '16.50',
-          artist: 'ISYANA SARASVATI',
-          description: 'Lorem Ipsum Dolor sit consectetur adipiscing elit, sedLorem Ipsum Dolor sit consectetur adipiscing elit, sed'
-        },
-        {
-          id: 2,
-          start_time: '17.00',
-          end_time: '17.50',
-          artist: 'TULUS',
-          description: 'Lorem Ipsum Dolor sit consectetur adipiscing elit, sedLorem Ipsum Dolor sit consectetur adipiscing elit, sed'
-        },
-        {
-          id: 3,
-          start_time: '18.00',
-          end_time: '18.30',
-          artist: 'RAISA',
-          description: 'Lorem Ipsum Dolor sit consectetur adipiscing elit, sedLorem Ipsum Dolor sit consectetur adipiscing elit, sed'
-        },
-        {
-          id: 4,
-          start_time: '18.35',
-          end_time: '19.05',
-          artist: 'TOMPI',
-          description: 'Lorem Ipsum Dolor sit consectetur adipiscing elit, sedLorem Ipsum Dolor sit consectetur adipiscing elit, sed'
-        },
+        { start_time: '-', end_time: '-', name: '-', description: '', url_image: '', url_video: '' },
+        { start_time: '-', end_time: '-', name: '-', description: '', url_image: '', url_video: '' },
+        { start_time: '-', end_time: '-', name: '-', description: '', url_image: '', url_video: '' },
+        { start_time: '-', end_time: '-', name: '-', description: '', url_image: '', url_video: '' }
       ]
+    }
+  },
+  async fetch() {
+    let { data } = await this.$axios.get("/playstage");
+    this.dataState = data
+  },
+  methods: {
+    onSelect(url) {
+      this.$store.dispatch('currentPlaying/setPlaystage', url)
+      this.$router.replace({ path: '/entertainment-area/play-stage' })
     }
   },
   props: {
@@ -250,8 +245,20 @@ export default {
         .image-wrapper {
           width: 100%;
           height: 83%;
-          background: #FFFFFF;
+          display: flex;
+          overflow: hidden;
+          align-items: center;
+          background: #4B2D69;
+          justify-content: center;
           border-radius: 20px 20px 0px 0px;
+          .loading {
+            color: white;
+          }
+          .image-detail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
         }
         .title-wrapper {
           width: 100%;

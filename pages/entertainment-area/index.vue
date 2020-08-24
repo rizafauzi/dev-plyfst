@@ -3,7 +3,7 @@
     <img 
       class="background"
       src="~/static/img/entertainment-area-1920x1080.png" 
-      alt="cek"
+      alt="image"
     >
     <WatchNow />
 
@@ -89,6 +89,7 @@ export default {
   },
   data() {
 		return {
+      karaokeUrl: '',
       showModal: true,
       showCotgModal: true,
       showMarketModal: true,
@@ -101,7 +102,11 @@ export default {
       ],
       sideBar: ['RUNDOWN', 'MAIN MAP', 'LIVE CHAT'],
 		}
-	},
+  },
+  async fetch() {
+    let { data } = await this.$axios.get("/karaoke");
+    this.karaokeUrl = data.url_video
+  },
   props: {
 		items: {
 			type: Object,
@@ -122,20 +127,6 @@ export default {
         case 'LIVE CHAT':
           this.showLiveChatModal = !this.showLiveChatModal
           break;
-      }
-    },
-		isDesktop() {
-      if (process.browser) {
-        if (window.innerWidth >= 1024) {
-          return true
-            }
-        }
-    },
-    isMobile() {
-      if (process.browser) {
-        if (window.innerWidth <= 768) {
-          return true
-          }
       }
     },
     toggleModal() {

@@ -3,7 +3,7 @@
     <img 
       class="background"
       src="~/static/img/aurora-background.png" 
-      alt="cek"
+      alt="image"
     >
     <WatchNow />
     <div @click="$router.replace({  path: '/entertainment-area' })">

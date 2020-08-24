@@ -38,7 +38,7 @@
       <LocationTag :areaTitle="'ENTERTAINMENT AREA'" id="entertainment-area"/>
     </nuxt-link>
 
-    <nuxt-link to="/entertainment-area">
+    <nuxt-link to="/ideas-area">
       <LocationTag :areaTitle="'IDEAS AREA'" id="ideas-area"/>
     </nuxt-link>
     

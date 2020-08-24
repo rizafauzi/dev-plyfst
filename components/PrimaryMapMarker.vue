@@ -4,7 +4,7 @@
       <img 
         class="icon-marker"
         src="~/static/icon/marker.png" 
-        alt="cek"
+        alt="image"
       >
     </div>
   </div>

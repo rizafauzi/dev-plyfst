@@ -3,22 +3,14 @@
     <img 
       class="background"
       src="~/static/img/play-cinema-indoor.jpg" 
-      alt="cek"
+      alt="image"
     >
     <WatchNow />
     <div @click="$router.replace({  path: '/art-area' })">
       <BackButton />
     </div>
 
-    <div class="current-playing">
-      <iframe 
-        class="iframe"
-        :src="currentPlaying" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen>
-      </iframe>
-    </div>
+    <CurrentPlaying :currentPlaying="currentPlaying"/>
 
     <SideBar 
       :dataState="sideBar" 
@@ -54,6 +46,7 @@ import WatchNow from '../../components/WatchNow.vue'
 import BackButton from '../../components/BackButton.vue'
 import ChatSession from '../../components/ChatSession.vue'
 import RundownModal from '../../components/RundownModal.vue'
+import CurrentPlaying from '../../components/CurrentPlaying.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
 import OrientationModal from '../../components/OrientationModal.vue'
 import BubbleChatButton from '../../components/BubbleChatButton.vue'
@@ -66,6 +59,7 @@ export default {
     BackButton,
     ChatSession,
     RundownModal,
+    CurrentPlaying,
     NavigationModal,
     OrientationModal,
     BubbleChatButton,
@@ -76,7 +70,7 @@ export default {
       showRundownModal: true,
       showOrientationModal: true,
       currentRoute: 'CINEMA AREA',
-      currentPlaying: this.$store.state.currentPlaying.url_video,
+      currentPlaying: this.$store.state.currentPlaying.url_playcinema,
       routing: [
         {title: 'ENTERTAINMENT AREA', route: '/art-area'},
         {title: 'ENTERTAINMENT AREA', route: '/entertainment-area'},
@@ -138,26 +132,6 @@ export default {
     position: fixed;
     overflow: hidden;
     object-fit: cover;
-  }
-  .current-playing {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    height: 100vh;
-    position: fixed;
-    align-items: center;
-    justify-content: center;
-    .iframe {
-      width: 34%;
-      height: 35%;
-      @media (max-width: 1024px) {
-        width: 45%;
-        height: 35%;
-      }
-    }
   }
 }
 

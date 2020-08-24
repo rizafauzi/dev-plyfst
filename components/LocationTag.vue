@@ -4,7 +4,7 @@
       <img 
         class="icon-marker"
         src="~/static/icon/marker.png" 
-        alt="cek"
+        alt="image"
       >
     </div>
     <div class="location-tag sm:mb-1 md:mb-2 sm:pl-4 sm:pr-4 sm:p-1 md:pr-6 md:pl-6">
@@ -15,7 +15,7 @@
       <img 
         class="logo-narasi"
         src="~/static/logo/narasi-brandmark-primary-violet.png" 
-        alt="cek"
+        alt="image"
       >
     </div>
   </div>

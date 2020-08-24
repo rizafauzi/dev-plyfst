@@ -6,7 +6,7 @@
         <img 
           class="base-button"
           src="~/static/img/base-button.png" 
-          alt="cek"
+          alt="image"
         >
         <span class="sm:text-xxs lg:text-tiny xl:text-xl 2xl:text-2xl">{{sidebar}}</span>
       </div>

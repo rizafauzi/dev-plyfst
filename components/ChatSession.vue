@@ -11,7 +11,7 @@
         <img 
           class="icon-close"
           src="~/static/icon/smile.png" 
-          alt="cek"
+          alt="image"
         >
       </div>
       <input class="chat-input" placeholder="Type something..." v-model="newMessage" />

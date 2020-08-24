@@ -7,7 +7,7 @@
           <img 
             class="icon-close"
             src="~/static/icon/cancel.png" 
-            alt="cek"
+            alt="image"
           >
         </div>
       </div>

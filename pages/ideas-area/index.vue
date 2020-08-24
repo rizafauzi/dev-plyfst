@@ -3,7 +3,7 @@
     <img 
       class="background"
       src="~/static/img/ideas-area-1440x900.png" 
-      alt="cek"
+      alt="image"
     >
     <WatchNow />
 
@@ -19,7 +19,7 @@
       :toggleRundownModal="toggleRundownModal"
     />
 
-    <div @click="toggleNetworkModal()">
+    <div @click="onSelectNetwork()">
       <PrimaryMapMarker class="area-title" id="network-lounge"/>
     </div>
 
@@ -75,6 +75,10 @@ export default {
   },
   data() {
 		return {
+      networkUrl: '',
+      talkshowUrl: '',
+      workshopUrl: '',
+      conferenceUrl: '',
       showModal: false,
       showNetworkModal: true,
       showRundownModal: true,
@@ -94,7 +98,11 @@ export default {
 				return {}
 			}
 		}
-	},
+  },
+  async fetch() {
+    let dataNetwork = await this.$axios.get("/network-lounge");
+    this.networkUrl = dataNetwork.data.url_video
+  },
 	methods: {
     handleAction(action) {
       switch(action) {
@@ -109,6 +117,10 @@ export default {
           break;
       }
     },
+    onSelectNetwork() {
+      this.$store.dispatch('currentPlaying/setNetwork', this.networkUrl)
+      this.toggleNetworkModal()
+    },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal
     },
@@ -118,20 +130,6 @@ export default {
     toggleNetworkModal() {
       this.showNetworkModal = !this.showNetworkModal
     },
-		isDesktop() {
-        if (process.browser) {
-            if (window.innerWidth >= 1024) {
-                return true
-            }
-        }
-    },
-    isMobile() {
-      if (process.browser) {
-          if (window.innerWidth <= 768) {
-              return true
-          }
-      }
-    }
 	}
 }
 </script>

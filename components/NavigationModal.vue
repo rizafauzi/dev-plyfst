@@ -6,7 +6,7 @@
           <img 
             class="background"
             src="~/static/img/aurora-background.png" 
-            alt="cek"
+            alt="image"
           >
           <div @click="modalToggle()" class="map-title">
             <span class="shortcut-title sm:text-xxs lg:text-xl">{{ currentRoute }}</span>
@@ -20,7 +20,7 @@
                 <img 
                   class="background-button"
                   src="~/static/img/main-map-640x160.png" 
-                  alt="cek"
+                  alt="image"
                 >
                 <div class="button-text">
                   <span class="button-text sm:text-xxs lg:text-xl p-12">GO TO MAIN MAP</span>
@@ -36,19 +36,19 @@
                     v-if="item.title === 'ART AREA'"
                     class="background-button"
                     src="~/static/img/art-area-640x160.png" 
-                    alt="cek"
+                    alt="image"
                   >
                   <img 
                     v-if="item.title === 'ENTERTAINMENT AREA'"
                     class="background-button"
                     src="~/static/img/entertainment-area-640x160.png" 
-                    alt="cek"
+                    alt="image"
                   >
                   <img 
                     v-if="item.title === 'IDEAS AREA'"
                     class="background-button"
                     src="~/static/img/ideas-area-640x160.png" 
-                    alt="cek"
+                    alt="image"
                   >
                   <div class="button-text">
                     <span class="button-text sm:text-xxs lg:text-xl p-12">{{item.title}}</span>

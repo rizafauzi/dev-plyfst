@@ -3,12 +3,14 @@
     <img 
       class="background"
       src="~/static/img/conference-room-indoor.jpg" 
-      alt="cek"
+      alt="image"
     >
     <WatchNow />
     <div @click="$router.replace({  path: '/ideas-area' })">
       <BackButton />
     </div>
+
+    <CurrentPlaying :currentPlaying="conferenceUrl"/>
 
     <SideBar 
       :dataState="sideBar" 
@@ -44,6 +46,7 @@ import WatchNow from '../../components/WatchNow.vue'
 import BackButton from '../../components/BackButton.vue'
 import ChatSession from '../../components/ChatSession.vue'
 import RundownModal from '../../components/RundownModal.vue'
+import CurrentPlaying from '../../components/CurrentPlaying.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
 import OrientationModal from '../../components/OrientationModal.vue'
 import BubbleChatButton from '../../components/BubbleChatButton.vue'
@@ -56,6 +59,7 @@ export default {
     BackButton,
     ChatSession,
     RundownModal,
+    CurrentPlaying,
     NavigationModal,
     OrientationModal,
     BubbleChatButton,
@@ -63,9 +67,11 @@ export default {
   },
   data() {
 		return {
+      conferenceUrl: '',
       showRundownModal: true,
       showOrientationModal: true,
       currentRoute: 'CONFERENCE ROOM',
+      // currentPlaying: this.$store.state.currentPlaying.url_conference,
       routing: [
         {title: 'ENTERTAINMENT AREA', route: '/art-area'},
         {title: 'ENTERTAINMENT AREA', route: '/entertainment-area'},
@@ -82,6 +88,10 @@ export default {
 				return {}
 			}
 		}
+  },
+  async fetch() {
+    let dataConference = await this.$axios.get("/conference")
+    this.conferenceUrl = dataConference.data.url_video
   },
 	methods: {
     handleAction(action) {

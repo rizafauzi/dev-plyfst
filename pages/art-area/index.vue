@@ -3,7 +3,7 @@
     <img 
       class="background"
       src="~/static/img/art-area-1920x1080.png" 
-      alt="cek"
+      alt="image"
     >
     <WatchNow />
 
@@ -110,25 +110,12 @@ export default {
     toggleLiveChatModal() {
       this.showLiveChatModal = !this.showLiveChatModal
     },
-		isDesktop() {
-        if (process.browser) {
-            if (window.innerWidth >= 1024) {
-                return true
-            }
-        }
-    },
+    
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal
     },
     toggleCinemaModal() {
       this.showCinemaModal = !this.showCinemaModal
-    },
-    isMobile() {
-      if (process.browser) {
-          if (window.innerWidth <= 768) {
-              return true
-          }
-      }
     },
     selectArtArea() {
       console.log('MASUK CUY')

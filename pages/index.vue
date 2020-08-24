@@ -12,13 +12,13 @@
       <img 
         class="narasi-logo"
         src="~/static/logo/narasi-brandmark-primary-yellow.png" 
-        alt="cek"
+        alt="image"
       >
     </div>
     <img 
       class="playfest-logo"
       src="~/static/logo/playfest.png" 
-      alt="cek"
+      alt="image"
     >
     <div class="getin-container">
       <nuxt-link to="/home">

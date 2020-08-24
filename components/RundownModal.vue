@@ -13,7 +13,7 @@
         <img 
           class="rundown-image"
           src="~/static/img/rundown.jpg" 
-          alt="cek"
+          alt="image"
         >
       </div>
     </div>

@@ -3,12 +3,14 @@
     <img 
       class="background"
       src="~/static/img/karaoke-room.png" 
-      alt="cek"
+      alt="image"
     >
     <WatchNow />
     <div @click="$router.replace({  path: '/entertainment-area' })">
       <BackButton />
     </div>
+
+    <CurrentPlaying :currentPlaying="karaokeUrl"/>
 
     <SideBar 
       :dataState="sideBar" 
@@ -44,6 +46,7 @@ import WatchNow from '../../components/WatchNow.vue'
 import BackButton from '../../components/BackButton.vue'
 import ChatSession from '../../components/ChatSession.vue'
 import RundownModal from '../../components/RundownModal.vue'
+import CurrentPlaying from '../../components/CurrentPlaying.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
 import OrientationModal from '../../components/OrientationModal.vue'
 import BubbleChatButton from '../../components/BubbleChatButton.vue'
@@ -56,6 +59,7 @@ export default {
     BackButton,
     ChatSession,
     RundownModal,
+    CurrentPlaying,
     NavigationModal,
     OrientationModal,
     BubbleChatButton,
@@ -63,9 +67,11 @@ export default {
   },
   data() {
 		return {
+      karaokeUrl: '',
       showRundownModal: true,
       showOrientationModal: true,
       currentRoute: 'KARAOKE ROOM',
+      // currentPlaying: this.$store.state.currentPlaying.url_karaoke,
       routing: [
         {title: 'ENTERTAINMENT AREA', route: '/art-area'},
         {title: 'ENTERTAINMENT AREA', route: '/entertainment-area'},
@@ -83,6 +89,10 @@ export default {
 			}
 		}
   },
+  async fetch() {
+    let dataKaraoke = await this.$axios.get("/karaoke")
+    this.karaokeUrl = dataKaraoke.data.url_video
+  },
 	methods: {
     handleAction(action) {
       switch(action) {
@@ -97,13 +107,6 @@ export default {
           break;
       }
     },
-		isDesktop() {
-        if (process.browser) {
-            if (window.innerWidth >= 1024) {
-                return true
-            }
-        }
-    },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal
     },
@@ -112,13 +115,6 @@ export default {
     },
     addNewMessage(newMessage) {
       this.dataState.push(newMessage)
-    },
-    isMobile() {
-      if (process.browser) {
-          if (window.innerWidth <= 768) {
-              return true
-          }
-      }
     },
 	}
 }
