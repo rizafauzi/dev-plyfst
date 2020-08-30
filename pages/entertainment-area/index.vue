@@ -1,10 +1,17 @@
 <template>
   <div class="container" >
+
     <img 
+      v-if="device === 'DESKTOP' || device === 'MOBILE' "
       class="background"
-      src="~/static/img/entertainment-area-1920x1080.png" 
-      alt="image"
+      src="~/static/img/ENTERTAINMENT-DESKTOP.png"
     >
+    <img 
+      v-else-if="device === 'TABLET'"
+      class="background"
+      src="~/static/img/ENTERTAINMENT-TABLET.png"
+    >
+
     <WatchNow />
 
 		<SideBar 
@@ -51,6 +58,8 @@
     />
 
     <LiveChatModal 
+      :dataState="dataState"
+      :toggleLoginModal="toggleLoginModal"
       :showLiveChatModal="showLiveChatModal" 
       :toggleLiveChatModal="toggleLiveChatModal"
     />
@@ -60,6 +69,11 @@
       :toggleRundownModal="toggleRundownModal"
     />
 
+    <LoginModal 
+      :showLoginModal="showLoginModal" 
+      :toggleLoginModal="toggleLoginModal"
+    />
+
   </div>
 </template>
 
@@ -67,6 +81,7 @@
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
 import CotgModal from '../../components/CotgModal.vue'
+import LoginModal from '../../components/LoginModal.vue'
 import PlayfestLogo from '../../components/PlayfestLogo.vue'
 import RundownModal from '../../components/RundownModal.vue'
 import LiveChatModal from '../../components/LiveChatModal.vue'
@@ -74,11 +89,13 @@ import PlayStageModal from '../../components/PlayStageModal.vue'
 import TheMarketModal from '../../components/TheMarketModal.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
 import PrimaryMapMarker from '../../components/PrimaryMapMarker.vue'
+import dummyData from './state'
 export default {
   components: {
     SideBar,
     WatchNow,
     CotgModal,
+    LoginModal,
     RundownModal,
     PlayfestLogo,
     LiveChatModal,
@@ -92,10 +109,13 @@ export default {
       karaokeUrl: '',
       showModal: true,
       showCotgModal: true,
+      dataState: dummyData,
+      showLoginModal: false,
       showMarketModal: true,
       showRundownModal: true,
       showLiveChatModal: true,
-      currentRoute: 'ENTERTAIMENT AREA',
+      device: this.$store.getters['app/getDevice'],
+      currentRoute: 'OFFICIAL ENTERTAINMENT AREA PARTNER',
       routing: [
         {title: 'IDEAS AREA', route: '/ideas-area'}, 
         {title: 'ART AREA', route: '/art-area'}
@@ -134,6 +154,9 @@ export default {
     },
     toggleCotgModal() {
       this.showCotgModal = !this.showCotgModal
+    },
+    toggleLoginModal() {
+      this.showLoginModal = !this.showLoginModal
     },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal
@@ -203,7 +226,7 @@ export default {
 
 #karaoke.area-title {
   top: 32%;
-  left: 27%;
+  left: 26%;
   @media (max-width: 1023px) {
     top: 30%;
     left: 21%;
@@ -211,12 +234,8 @@ export default {
 }
 
 #playstage.area-title {
-  top: 15%;
-  left: 42%;
-  @media (max-width: 1023px) {
-    top: 20%;
-    left: 40%;
-  }
+  top: 13%;
+  left: 49%;
 }
 
 #the-market.area-title {
@@ -225,8 +244,8 @@ export default {
 }
 
 #cotg.area-title {
-  top: 42%;
-  left: 72%;
+  top: 27%;
+  left: 70%;
 }
 
 span {

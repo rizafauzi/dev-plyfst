@@ -67,25 +67,35 @@ export default {
     modalToggle: {
 			type: Function
 		},
+    addNewMessage: {
+			type: Function
+		},
+    toggleLoginModal: {
+			type: Function
+		},
   },
   data() {
 		return {
-      isLogin: this.$store.state.user.isLogin,
+      newMessage: '',
       initial: false,
-      newMessage: ''
+      asdasdasd: this.$store.state.user,
+      email: this.$store.state.user.email,
+      isLogin: this.$store.state.user.isLogin,
+      password: this.$store.state.user.password,
 		}
   },
   methods: {
     addMessage() {
       if(this.newMessage !== '') {
-        const message = { username: 'unknown', message: this.newMessage }
+        const message = { username: this.email === '' ? 'unknown' : this.email, message: this.newMessage }
         this.addNewMessage(message)
         this.newMessage = ''
       }
     },
     onLogin() {
-      this.$store.dispatch('user/setOpenLogin', true)
       this.modalToggle()
+      this.toggleLoginModal()
+      // this.$store.dispatch('user/setOpenLogin', true)
     }
   }
 }

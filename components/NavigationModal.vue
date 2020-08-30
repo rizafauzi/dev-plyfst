@@ -19,7 +19,7 @@
               <div class="main-map-shortcut">
                 <img 
                   class="background-button"
-                  src="~/static/img/main-map-640x160.png" 
+                  src="~/static/img/MAIN-SIDEBAR.png" 
                   alt="image"
                 >
                 <div class="button-text">
@@ -35,19 +35,19 @@
                   <img 
                     v-if="item.title === 'ART AREA'"
                     class="background-button"
-                    src="~/static/img/art-area-640x160.png" 
+                    src="~/static/img/ART-SIDEBAR.png" 
                     alt="image"
                   >
                   <img 
-                    v-if="item.title === 'ENTERTAINMENT AREA'"
+                    v-if="item.title === 'OFFICIAL ENTERTAINMENT AREA PARTNER'"
                     class="background-button"
-                    src="~/static/img/entertainment-area-640x160.png" 
+                    src="~/static/img/ENTERTAINMENT-SIDEBAR.png" 
                     alt="image"
                   >
                   <img 
                     v-if="item.title === 'IDEAS AREA'"
                     class="background-button"
-                    src="~/static/img/ideas-area-640x160.png" 
+                    src="~/static/img/IDEAS-SIDEBAR.png" 
                     alt="image"
                   >
                   <div class="button-text">

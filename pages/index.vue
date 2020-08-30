@@ -21,7 +21,7 @@
       alt="image"
     >
     <div class="getin-container">
-      <nuxt-link to="/home">
+      <nuxt-link to="/boarding">
         <h2 class="sm:text-tiny lg:text-xl xl:text-2xl 2xl:text-2xl" id="getin">GET IN</h2>
       </nuxt-link>
     </div>
@@ -31,31 +31,7 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      showRundownModal: true,
-      showLiveChatModal: true,
-      sideBar: ['RUNDOWN', 'LIVE CHAT'],
-    }
-  },
-	methods: {
-		isDesktop() {
-        if (process.browser) {
-            if (window.innerWidth >= 1024) {
-                return true
-            }
-        }
-    },
-    isMobile() {
-      if (process.browser) {
-          if (window.innerWidth <= 768) {
-              return true
-          }
-      }
-    }
-	}
-}
+export default {}
 </script>
 
 
@@ -85,12 +61,16 @@ export default {
     align-items: flex-end;
     flex-direction: column;
     justify-content: flex-start;
+    @media (max-width: 1023px) {
+      left: 10%;
+      width: 80%;
+    }
     .event-content {
       width: 100%;
       display: flex;
-      justify-content: center;
-      flex-direction: row;
       margin-bottom: 5%;
+      flex-direction: row;
+      justify-content: center;
       .narasi-logo {
         width: 35%;
         object-fit: contain;
@@ -107,7 +87,7 @@ export default {
     width: 100%;
     padding: 2%;
     display: flex;
-    margin-top: 5%;
+    margin-top: 10%;
     align-items: center;
     justify-content: center;
   }

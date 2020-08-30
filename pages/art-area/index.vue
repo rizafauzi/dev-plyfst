@@ -1,9 +1,14 @@
 <template>
   <div class="container" >
     <img 
+      v-if="device === 'DESKTOP' || device === 'MOBILE' "
       class="background"
-      src="~/static/img/art-area-1920x1080.png" 
-      alt="image"
+      src="~/static/img/ART-DESKTOP.png"
+    >
+    <img 
+      v-else-if="device === 'TABLET'"
+      class="background"
+      src="~/static/img/ART-TABLET.png"
     >
     <WatchNow />
 
@@ -15,11 +20,47 @@
 		<PlayfestLogo />
 
     <div @click="toggleCinemaModal()" class="area-title w-auto h-auto" id="play-cinema">
-      <PrimaryMapMarker />
+      <div class="area-description sm:p-1 sm:pl-5 sm:pr-5 md:pr-10 md:p-2 md:pl-10">
+        <h3 class="sm:text-xs lg:text-base xl:text-lg">Sponsored by </h3>
+        <img 
+          class="logo-narasi"
+          src="~/static/logo/narasi-brandmark-primary-violet.png" 
+          alt="image"
+        >
+      </div>
+      <div>
+        <div class="location-icon">
+          <img 
+            class="icon-marker"
+            src="~/static/icon/marker.png" 
+            alt="image"
+          >
+        </div>
+      </div>
     </div>
     
-    <div @click="$router.replace({ path: `/art-area/art-house` })" >
-      <PrimaryMapMarker class="area-title w-auto h-auto" id="art-gallery"/>
+    <div 
+      id="art-gallery"
+      class="area-title w-auto h-auto" 
+      @click="$router.replace({ path: `/art-area/art-house` })" 
+    >
+      <div>
+        <div class="location-icon">
+          <img 
+            class="icon-marker"
+            src="~/static/icon/marker.png" 
+            alt="image"
+          >
+        </div>
+      </div>
+      <div class="area-description sm:p-1 sm:pl-5 sm:pr-5 md:pr-10 md:p-2 md:pl-10">
+        <h3 class="sm:text-xs lg:text-base xl:text-lg">Sponsored by </h3>
+        <img 
+          class="logo-narasi"
+          src="~/static/logo/narasi-brandmark-primary-violet.png" 
+          alt="image"
+        >
+      </div>
     </div>
     
     <NavigationModal 
@@ -34,6 +75,7 @@
 
     <LiveChatModal 
       :dataState="dataState"
+      :toggleLoginModal="toggleLoginModal"
       :showLiveChatModal="showLiveChatModal" 
       :toggleLiveChatModal="toggleLiveChatModal"
     />
@@ -41,6 +83,11 @@
     <RundownModal 
       :showRundownModal="showRundownModal" 
       :toggleRundownModal="toggleRundownModal"
+    />
+    
+    <LoginModal 
+      :showLoginModal="showLoginModal" 
+      :toggleLoginModal="toggleLoginModal"
     />
 
   </div>
@@ -50,6 +97,7 @@
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
 import BackButton from '../../components/BackButton.vue'
+import LoginModal from '../../components/LoginModal.vue'
 import PlayfestLogo from '../../components/PlayfestLogo.vue'
 import RundownModal from '../../components/RundownModal.vue'
 import LiveChatModal from '../../components/LiveChatModal.vue'
@@ -62,6 +110,7 @@ export default {
   components: {
     SideBar,
     WatchNow,
+    LoginModal,
     BackButton,
     RundownModal,
     PlayfestLogo,
@@ -74,14 +123,17 @@ export default {
   data() {
 		return {
       dataState: dummyData,
+      showLoginModal: false,
       showCinemaModal: true,
       showRundownModal: true,
       showLiveChatModal: true,
+      showModal: this.$store.state.user.onLogin,
+      device: this.$store.getters['app/getDevice'],
       sideBar: ['RUNDOWN', 'MAIN MAP', 'LIVE CHAT'],
       currentRoute: 'ART AREA',
       routing: [
         {title: 'IDEAS AREA', route: '/ideas-area'}, 
-        {title: 'ENTERTAINMENT AREA', route: '/entertainment-area'}
+        {title: 'OFFICIAL ENTERTAINMENT AREA PARTNER', route: '/entertainment-area'}
       ],
 		}
 	},
@@ -103,19 +155,22 @@ export default {
           this.$router.replace({  path: '/home' })
           break;
         case 'LIVE CHAT':
-          this.showLiveChatModal = !this.showLiveChatModal
+          // this.toggleLoginModal()
+          this.toggleLiveChatModal()
           break;
       }
     },
-    toggleLiveChatModal() {
-      this.showLiveChatModal = !this.showLiveChatModal
-    },
-    
-    toggleRundownModal() {
-      this.showRundownModal = !this.showRundownModal
+    toggleLoginModal() {
+      this.showLoginModal = !this.showLoginModal
     },
     toggleCinemaModal() {
       this.showCinemaModal = !this.showCinemaModal
+    },
+    toggleRundownModal() {
+      this.showRundownModal = !this.showRundownModal
+    },
+    toggleLiveChatModal() {
+      this.showLiveChatModal = !this.showLiveChatModal
     },
     selectArtArea() {
       console.log('MASUK CUY')
@@ -127,8 +182,8 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-	max-width: 100%;
   height: 100vh;
+	max-width: 100%;
   overflow: hidden;
   padding: 0 0% 0 0%;
   .background {
@@ -160,17 +215,55 @@ export default {
 }
 
 .area-title {
+  opacity: 0.7;
   display: flex;
   position: absolute;
   align-items: center;
+  flex-direction: row;
   border-radius: 125px;
-  flex-direction: column;
   justify-content: center;
+  .location-icon {
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+    background: #ffffff;
+    justify-content: center;
+    @media (max-width: 1023px) {
+      height: 65px;
+      width: 65px;
+    }
+    @media (max-width: 1000px) {
+      height: 40px;
+      width: 40px;
+    }
+    .icon-marker {
+      z-index: 100;
+      opacity: 1;
+      width: 50%;
+      height: 50%;
+      object-fit: contain;
+    }
+  }
+  .area-description {
+    margin: -30px;
+    display: flex;
+    position: relative;
+    border-radius: 40px;
+    align-items: center;
+    background: #ffffff;
+    justify-content: center;
+    .logo-narasi {
+      width: 10vh;
+      margin-left: 10px;
+    }
+  }
 }
 
 .area-title:hover {
+  opacity: 1;
   cursor: pointer;
-  -webkit-filter: drop-shadow(5px 5px 5px #FFFFFF);
   filter: drop-shadow(0px 5px 10px #FFFFFF);
 }
 
@@ -193,13 +286,13 @@ export default {
 } */
 
 #play-cinema.area-title {
-  top: 48%;
-  left: 48%;
+  top: 45%;
+  left: 38%;
 }
 
 #art-gallery.area-title {
   top: 20%;
-  left: 55%;
+  left: 50%;
 }
 
 span {

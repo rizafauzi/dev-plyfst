@@ -17,7 +17,6 @@ export const mutations = {
 
 export const actions = {
 	async setOpenLogin({ commit }, payload) {
-    console.log('payload; ', payload)
-    commit('LOGIN_MODAL', payload)
+    commit('SET_USER', payload)
 	}
 }

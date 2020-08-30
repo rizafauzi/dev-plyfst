@@ -1,12 +1,14 @@
 <template>
   <div class="container" >
-    <!-- <img 
-      class="art-area-building"
-      src="~/static/img/art-area.png" 
-    > -->
     <img 
+      v-if="device === 'DESKTOP' || device === 'MOBILE' "
       class="background"
-      src="~/static/img/main-map-1920x1080.png" 
+      src="~/static/img/MAIN-DESKTOP.png"
+    >
+    <img 
+      v-else-if="device === 'TABLET'"
+      class="background"
+      src="~/static/img/MAIN-TABLET.png"
     >
 
 		<WatchNow />
@@ -17,6 +19,9 @@
     />
 
     <LiveChatModal 
+      :dataState="dataState"
+      :addNewMessage="addNewMessage"
+      :toggleLoginModal="toggleLoginModal"
       :showLiveChatModal="showLiveChatModal" 
       :toggleLiveChatModal="toggleLiveChatModal"
     />
@@ -28,14 +33,17 @@
       :toggleRundownModal="toggleRundownModal"
     />
 
-    <LoginModal />
+    <LoginModal 
+      :showLoginModal="showLoginModal" 
+      :toggleLoginModal="toggleLoginModal"
+    />
     
 		<nuxt-link to="/art-area">
       <LocationTag :areaTitle="'ART AREA'" id="art-area"/>
 		</nuxt-link>
     
     <nuxt-link to="/entertainment-area">
-      <LocationTag :areaTitle="'ENTERTAINMENT AREA'" id="entertainment-area"/>
+      <LocationTag :areaTitle="'OFFICIAL ENTERTAINMENT AREA PARTNER'" id="entertainment-area"/>
     </nuxt-link>
 
     <nuxt-link to="/ideas-area">
@@ -55,6 +63,7 @@ import RundownModal from '../components/RundownModal.vue'
 import LiveChatModal from '../components/LiveChatModal.vue'
 import BubbleChatButton from '../components/BubbleChatButton.vue'
 import PrimaryMapMarker from '../components/PrimaryMapMarker.vue'
+import dummyData from './state'
 export default {
   components: {
     SideBar,
@@ -69,9 +78,12 @@ export default {
   },
   data() {
     return {
+      dataState: dummyData,
+      showLoginModal: false,
       showRundownModal: true,
       showLiveChatModal: true,
       sideBar: ['RUNDOWN', 'LIVE CHAT'],
+      device: this.$store.getters['app/getDevice']
     }
   },
   props: {
@@ -93,25 +105,17 @@ export default {
           break;
       }
     },
-    toggleLiveChatModal() {
-      this.showLiveChatModal = !this.showLiveChatModal
+    toggleLoginModal() {
+      this.showLoginModal = !this.showLoginModal
     },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal
     },
-		isDesktop() {
-        if (process.browser) {
-            if (window.innerWidth >= 1024) {
-                return true
-            }
-        }
+    toggleLiveChatModal() {
+      this.showLiveChatModal = !this.showLiveChatModal
     },
-    isMobile() {
-      if (process.browser) {
-          if (window.innerWidth <= 768) {
-              return true
-          }
-      }
+    addNewMessage(newMessage) {
+      this.dataState.push(newMessage)
     }
 	}
 }
@@ -157,7 +161,8 @@ export default {
 
 #art-area {
   top: 32%;
-  left: 13%;
+  left: 15%;
+
 }
 
 #entertainment-area {
@@ -167,7 +172,7 @@ export default {
 
 #ideas-area {
   top: 38%;
-  left: 60%;
+  left: 63%;
 }
 
 span {

@@ -5,17 +5,7 @@
 </template>
 
 <style>
-@media screen and (orientation: portrait) {
-  html {
-    transform: rotate(90deg);
-    transform-origin: left top;
-    width: 100vh;
-    overflow-x: hidden;
-    position: absolute;
-    top: 0%;
-    left: 100%;
-  }
-}
+
 
 /* html {
   font-family: 'Roboto', sans-serif;
@@ -29,6 +19,18 @@
   background: url('../static/background.jpg');
   scroll-behavior: smooth;
 } */
+
+@media screen and (orientation: portrait) {
+  html {
+    transform: rotate(90deg);
+    transform-origin: left top;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 0%;
+    left: 100%;
+  }
+}
 
 body {
 	font-family: 'Roboto', sans-serif;

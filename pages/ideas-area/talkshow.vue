@@ -73,8 +73,8 @@ export default {
       currentRoute: 'TALKSHOW ROOM',
       // currentPlaying: this.$store.state.currentPlaying.url_talkshow,
       routing: [
-        {title: 'ENTERTAINMENT AREA', route: '/art-area'},
-        {title: 'ENTERTAINMENT AREA', route: '/entertainment-area'},
+        {title: 'OFFICIAL ENTERTAINMENT AREA PARTNER', route: '/art-area'},
+        {title: 'OFFICIAL ENTERTAINMENT AREA PARTNER', route: '/entertainment-area'},
         {title: 'IDEAS AREA', route: '/ideas-area'}, 
       ],
       sideBar: this.$store.getters['app/getDevice'] === 'DESKTOP' ? ['RUNDOWN', 'MAIN MAP'] : ['RUNDOWN', 'MAIN MAP', 'MODE'],

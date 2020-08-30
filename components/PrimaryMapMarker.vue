@@ -45,6 +45,10 @@ export default {
     height: 65px;
     width: 65px;
   }
+  @media (max-width: 1000px) {
+    height: 40px;
+    width: 40px;
+  }
   .icon-marker {
     opacity: 1;
     width: 50%;
@@ -56,7 +60,6 @@ export default {
 .location-icon:hover {
   opacity: 1;
   cursor: pointer;
-  -webkit-filter: drop-shadow(5px 5px 5px #FFFFFF);
   filter: drop-shadow(0px 5px 10px #FFFFFF);
 }
 </style>

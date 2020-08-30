@@ -13,6 +13,17 @@ export const getters = {
         return 'DESKTOP'
       }
     }
+	},
+	getResolution: (state, getters) => {
+		if(process.browser) {
+      if(window.innerWidth <= 900) {
+        return 'MOBILE'
+      } else if(window.innerWidth > 900 && window.innerWidth <= 1024) {
+        return 'TABLET'
+      } else {
+        return 'DESKTOP'
+      }
+    }
 	}
 }
 

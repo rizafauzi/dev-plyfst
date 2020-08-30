@@ -1,9 +1,9 @@
 <template>
-  <div v-if="showModal" class="modal-container">
-    <div class="backdrop" @click="showModal = !showModal" />
-    <div class="modal-content" v-bind:id="[showModal ? 'show' : 'hide']">
+  <div v-if="showLoginModal" class="modal-container">
+    <div class="backdrop" @click="toggleLoginModal()" />
+    <div class="modal-content" v-bind:id="[showLoginModal ? 'show' : 'hide']">
       <div class="close-container">
-        <div class="close-button" @click="toggleModal()">
+        <div class="close-button" @click="toggleLoginModal()">
           <img 
             class="icon-close"
             src="~/static/icon/cancel.png" 
@@ -19,11 +19,13 @@
           <h3 class="label-input sm:text-xxs lg:text-lg">Email</h3>
           <input class="login-input sm:text-tiny lg:text-xl" placeholder="Enter username" v-model="newUsername" />
           <div class="line-shape" />
+          <h5 class="error-label sm:text-xxs lg:text-tiny">{{setError.username}}</h5>
         </div>
         <div class="input-container">
           <h3 class="label-input sm:text-xxs lg:text-lg">Password</h3>
-          <input class="login-input sm:text-tiny lg:text-xl" placeholder="Enter password" v-model="newPassword" />
+          <input type="password" class="login-input sm:text-tiny lg:text-xl" placeholder="Enter password" v-model="newPassword" />
           <div class="line-shape" />
+          <h5 class="error-label sm:text-xxs lg:text-tiny">{{setError.password}}</h5>
         </div>
         <div class="modal-button" @click="onLogin()">
           <Loader v-if="isLoading" class="loading"/>
@@ -42,9 +44,24 @@ export default {
   components: {
     Loader
   },
+  props: {
+    showLoginModal: {
+			type: Boolean,
+			default() {
+				return false
+			}
+		},
+    toggleLoginModal: {
+			type: Function
+		},
+  },
   data() {
 		return {
       isLoading: false,
+      setError: {
+        username: '',
+        password: ''
+      },
       newUsername: '',
       newPassword: '',
       showModal: this.$store.state.user.onLogin,
@@ -53,24 +70,49 @@ export default {
   },
   // mounted() {
   //   setTimeout(() => {
-  //     this.showModal = true
+  //     this.toggleLoginModal()
   //   }, 100 );
   // },
 	methods: {
-    toggleModal() {
-      this.showModal = !this.showModal
-    },
     async onLogin() {
-      let data = { username: this.newUsername, password: this.newPassword }
-      this.isLoading = true
-      
-      try {
-        let res = await this.$auth.loginWith('local', { data })
-        this.isLoading = false
-        let user = res.data.data.user;
-      } catch (err) {
-        this.isLoading = false
+      let data = { 
+        username: this.newUsername, 
+        password: this.newPassword,
+        token: 'ASD133REDSF342===',
+        onLogin: true,
+        isLogin: true
       }
+      this.isLoading = true
+
+      console.log('data: ', data)
+
+      setTimeout(() => {
+        this.isLoading = false
+        this.newUsername === '' ? 
+          this.setError.username = 'Please fill username':
+          this.setError.username = ''
+
+        this.newPassword === '' ? 
+          this.setError.password = 'Please fill password':
+          this.setError.password = ''
+          
+        if(this.newUsername !== '' && this.newPassword !== '') {
+          this.newUsername = ''
+          this.newPassword = ''
+          this.$store.dispatch('user/setOpenLogin', data)
+          this.toggleLoginModal()
+        }
+      }, 2000 );
+      
+      // try {
+      //   let res = await this.$auth.loginWith('local', { data })
+      //   this.isLoading = false
+      //   let user = res.data.data.user;
+
+      //   console.log('user: ', user)
+      // } catch (err) {
+      //   this.isLoading = false
+      // }
     }
 	}
 }
@@ -145,10 +187,16 @@ export default {
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        margin-bottom: 5%;
+        margin-bottom: 8%;
         .label-input {
           width: 100%;
           display: flex;
+          align-items: flex-start;
+        }
+        .error-label {
+          width: 100%;
+          display: flex;
+          margin-top: 2%;
           align-items: flex-start;
         }
         .login-input {
@@ -221,6 +269,16 @@ h2 {
 
 h3 {
   color: #FFFFFF;
+  font-weight: bold;
+  line-height: 100%;
+  font-style: normal;
+  text-align: center;
+  letter-spacing: 0.1em;
+  font-family: 'Narasi Sans Light';
+}
+
+h5 {
+  color: #AFE3F1;
   font-weight: bold;
   line-height: 100%;
   font-style: normal;

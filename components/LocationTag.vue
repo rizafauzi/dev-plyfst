@@ -8,10 +8,10 @@
       >
     </div>
     <div class="location-tag sm:mb-1 md:mb-2 sm:pl-4 sm:pr-4 sm:p-1 md:pr-6 md:pl-6">
-      <h2 class="sm:text-sm lg:text-lg xl:text-xl">{{areaTitle}}</h2>
+      <h2 class="sm:text-sm lg:text-lg xl:text-lg">{{areaTitle}}</h2>
     </div>
     <div class="area-description sm:p-1 sm:pl-5 sm:pr-5 md:pr-10 md:p-2 md:pl-10">
-      <h3 class="sm:text-xs lg:text-base xl:text-lg">Sponsored by </h3>
+      <h3 class="sm:text-xs lg:text-md xl:text-base">Sponsored by </h3>
       <img 
         class="logo-narasi"
         src="~/static/logo/narasi-brandmark-primary-violet.png" 
@@ -39,19 +39,28 @@ export default {
   z-index: 10;
   display: flex;
   opacity: 0.8;
+  scale: 0.5;
   position: absolute;
   align-items: center;
   border-radius: 100px;
   flex-direction: column;
   justify-content: center;
   .location-icon {
-    height: 90px;
-    width: 90px;
+    height: 85px;
+    width: 85px;
     display: flex;
     border-radius: 100px;
     align-items: center;
     background: #ffffff;
     justify-content: center;
+    @media (max-width: 1025px) {
+      height: 60px;
+      width: 60px;
+    }
+    @media (max-width: 1000px) {
+      height: 40px;
+      width: 40px;
+    }
     .icon-marker {
       opacity: 1;
       width: 50%;
@@ -75,7 +84,7 @@ export default {
     background: #ffffff;
     justify-content: center;
     .logo-narasi {
-      width: 12vh;
+      width: 8vh;
       margin-left: 10px;
     }
   }

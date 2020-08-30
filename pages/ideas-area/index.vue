@@ -41,6 +41,8 @@
     />
 
     <LiveChatModal 
+      :dataState="dataState"
+      :toggleLoginModal="toggleLoginModal"
       :showLiveChatModal="showLiveChatModal" 
       :toggleLiveChatModal="toggleLiveChatModal"
     />
@@ -49,6 +51,11 @@
       :showNetworkModal="showNetworkModal" 
       :toggleNetworkModal="toggleNetworkModal"
     />
+
+    <LoginModal 
+      :showLoginModal="showLoginModal" 
+      :toggleLoginModal="toggleLoginModal"
+    />
     
   </div>
 </template>
@@ -56,16 +63,19 @@
 <script>
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
+import LoginModal from '../../components/LoginModal.vue'
 import RundownModal from '../../components/RundownModal.vue'
 import PlayfestLogo from '../../components/PlayfestLogo.vue'
 import NetworkModal from '../../components/NetworkModal.vue'
 import LiveChatModal from '../../components/LiveChatModal.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
 import PrimaryMapMarker from '../../components/PrimaryMapMarker.vue'
+import dummyData from './state'
 export default {
   components: {
     SideBar,
     WatchNow,
+    LoginModal,
     RundownModal,
     NetworkModal,
     PlayfestLogo,
@@ -80,12 +90,14 @@ export default {
       workshopUrl: '',
       conferenceUrl: '',
       showModal: false,
+      dataState: dummyData,
+      showLoginModal: false,
       showNetworkModal: true,
       showRundownModal: true,
       showLiveChatModal: true,
       currentRoute: 'IDEAS AREA',
       routing: [
-        {title: 'ENTERTAINMENT AREA', route: '/entertainment-area'}, 
+        {title: 'OFFICIAL ENTERTAINMENT AREA PARTNER', route: '/entertainment-area'}, 
         {title: 'ART AREA', route: '/art-area'}
       ],
       sideBar: ['RUNDOWN', 'MAIN MAP', 'LIVE CHAT'],
@@ -121,15 +133,18 @@ export default {
       this.$store.dispatch('currentPlaying/setNetwork', this.networkUrl)
       this.toggleNetworkModal()
     },
+    toggleLoginModal() {
+      this.showLoginModal = !this.showLoginModal
+    },
+    toggleNetworkModal() {
+      this.showNetworkModal = !this.showNetworkModal
+    },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal
     },
     toggleLiveChatModal() {
       this.showLiveChatModal = !this.showLiveChatModal
-    },
-    toggleNetworkModal() {
-      this.showNetworkModal = !this.showNetworkModal
-    },
+    }
 	}
 }
 </script>
@@ -180,7 +195,7 @@ export default {
 }
 
 #network-lounge.area-title {
-  top: 28%;
+  top: 26%;
   left: 27%;
   @media (max-width: 1024px) {
     top: 30%;
@@ -189,8 +204,8 @@ export default {
 }
 
 #talkshow.area-title {
-  top: 17%;
-  left: 41%;
+  top: 14%;
+  left: 40%;
   @media (max-width: 1024px) {
     top: 20%;
     left: 40%;
@@ -199,12 +214,12 @@ export default {
 
 #workshop.area-title {
   top: 50%;
-  left: 48%;
+  left: 49%;
 }
 
 #conference.area-title {
-  top: 17%;
-  left: 75%;
+  top: 13%;
+  left: 71%;
 }
 
 span {

@@ -30,8 +30,10 @@
     <div v-else>
       <SideLiveChat 
         :dataState="dataState"
+        :addNewMessage="addNewMessage"
         :showModal="showLiveChatModal" 
         :modalToggle="toggleLiveChatModal"
+        :toggleLoginModal="toggleLoginModal"
       />
     </div>
   </div>
@@ -48,7 +50,7 @@ export default {
   data() {
     return {
       device: this.$store.getters['app/getDevice'],
-      currentRoute: 'ENTERTAIMENT AREA',
+      currentRoute: 'OFFICIAL ENTERTAINMENT AREA PARTNER',
       routing: [
         {title: 'IDEAS AREA', route: '/ideas-area'}, 
         {title: 'ART AREA', route: '/art-area'}
@@ -62,6 +64,9 @@ export default {
         return []
       }
     },
+    toggleLoginModal: {
+			type: Function
+		},
     showLiveChatModal: {
 			type: Boolean,
 			default() {
@@ -69,6 +74,9 @@ export default {
 			}
 		},
     toggleLiveChatModal: {
+			type: Function
+		},
+    addNewMessage: {
 			type: Function
 		},
   },
