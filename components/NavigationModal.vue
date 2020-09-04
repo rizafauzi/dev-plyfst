@@ -93,7 +93,18 @@ export default {
       this.showModal = !this.showModal
       this.initial = false
     }
+  },
+  mounted() {
+    let vh = window.innerHeight * 0.01;
+    window.addEventListener('resize', () => {
+      console.log('window.innerHeight; ', window.innerHeight)
+      let sec = window.innerHeight * 0.01;
+      console.log('vh; ', sec)
+      document.documentElement.style.setProperty('--vh', `${sec}px`);
+    })
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
+  
 }
 </script>
 
@@ -173,16 +184,16 @@ span {
 }
 
 #initial {
-  top: 92%;
+  top: calc(var(--vh, 1vh) * 92);
 }
 
 #map-collapse {
-  top: 92%;
+  top: calc(var(--vh, 1vh) * 91);
   animation: fadeOut 400ms ease-in-out 0s 1 normal forwards;
 }
 
 #map-expand {
-  top: 0px;
+  top: calc(var(--vh, 1vh) * 0);
   animation: fadeIn 400ms ease-in-out 0s 1 normal forwards;
 }
 

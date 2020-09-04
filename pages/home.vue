@@ -117,15 +117,28 @@ export default {
     addNewMessage(newMessage) {
       this.dataState.push(newMessage)
     }
-	}
+  },
+  mounted() {
+    window.addEventListener('resize', () => {
+      let vh = window.innerHeight * 0.01;
+    })
+    // const orientation = window.screen.orientation.type
+    // if (orientation === "portrait-primary") {
+    //     let inHeight = window.innerWidth * 0.01;
+    //     let inWidth = window.innerWidth * 0.01;
+    //     document.documentElement.style.setProperty('--vh', `${vh}px`);
+    //     document.documentElement.style.setProperty('--vh', `${vh}px`);
+    //   } else if (orientation === "landscape-primary") {
+    //     let inHeight = window.innerHeight * 0.01;
+    //     let inWidth = window.innerHeight * 0.01;
+    //     document.documentElement.style.setProperty('--vh', `${vh}px`);
+    //   }
+  }
 }
 </script>
 
 
 <style lang="scss" scoped>
-
-
-
 .container {
 	max-width: 100%;
   height: 100vh;
@@ -138,8 +151,6 @@ export default {
     position: relative;
     width: 100%;
     height: 100vh;
-    /* position: fixed; */
-    /* overflow: hidden; */
     object-fit: cover;
   }
 	.columns {

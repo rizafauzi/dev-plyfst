@@ -175,7 +175,15 @@ export default {
     selectArtArea() {
       console.log('MASUK CUY')
     },
-	}
+  },
+  mounted() {
+    window.addEventListener('resize', () => {
+      console.log('window.innerHeight; ', window.innerHeight)
+      let vh = window.innerHeight * 0.01;
+      console.log('vh; ', vh)
+      // document.documentElement.style.setProperty('--vh', `${vh}px`);
+    })
+  }
 }
 </script>
 
