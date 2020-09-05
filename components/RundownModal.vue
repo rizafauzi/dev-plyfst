@@ -47,13 +47,7 @@ export default {
 		},
   },
 	methods: {
-		isDesktop() {
-        if (process.browser) {
-            if (window.innerWidth >= 1024) {
-                return true
-            }
-        }
-    },
+		
     isMobile() {
       if (process.browser) {
           if (window.innerWidth <= 768) {
@@ -69,10 +63,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-#popup {
-  z-index: 32;
-}
 
 .modal-container {
   top: 0px;
@@ -103,7 +93,6 @@ export default {
     flex-direction: column;
     justify-content: space-around;
     filter: drop-shadow(0px 5px 20px #4B2D69);
-    /* background-image: url('~@/static/img/aurora-background.png'); */
     animation: fadeIn 600ms cubic-bezier(0.62, 0.01, 0.33, 0.97) 0s 1 normal forwards;
     @media (max-width: 1023px) {
       height: 70%;
@@ -147,6 +136,10 @@ export default {
     }
     
   }
+}
+
+#popup {
+  z-index: 32;
 }
 
 .modal-button:hover {

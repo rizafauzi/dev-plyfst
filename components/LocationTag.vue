@@ -1,6 +1,6 @@
 <template>
   <div class="area-title w-auto h-auto" id="art-area">
-   <div class="location-icon sm:-mb-3 sm:w-12 sm:h-12 md:-mb-5 md:w-24 md:h-24 ">
+   <div class="location-icon sm:-mb-3 sm:w-12 sm:h-12 md:-mb-4 md:w-24 md:h-24 ">
       <img 
         class="icon-marker"
         src="~/static/icon/marker.png" 
@@ -8,18 +8,19 @@
       >
     </div>
     <div class="location-tag sm:mb-1 md:mb-2 sm:pl-4 sm:pr-4 sm:p-1 md:pr-6 md:pl-6">
-      <h2 class="sm:text-sm lg:text-lg xl:text-lg">{{areaTitle}}</h2>
-    </div>
-    <div class="area-description sm:p-1 sm:pl-5 sm:pr-5 md:pr-10 md:p-2 md:pl-10">
-      <h3 class="sm:text-xs lg:text-md xl:text-base">Sponsored by </h3>
-      <img 
-        class="logo-narasi"
-        src="~/static/logo/narasi-brandmark-primary-violet.png" 
-        alt="image"
-      >
+      <h2 class="sm:text-xs lg:text-md xl:text-base">{{areaTitle}}</h2>
     </div>
   </div>
 </template>
+
+// <div class="area-description sm:p-1 sm:pl-5 sm:pr-5 md:pr-10 md:p-2 md:pl-10">
+//       <h3 class="sm:text-xs lg:text-md xl:text-base">Sponsored by </h3>
+//       <img 
+//         class="logo-narasi"
+//         src="~/static/logo/narasi-brandmark-primary-violet.png" 
+//         alt="image"
+//       >
+//     </div>
 
 <script>
 export default {
@@ -46,11 +47,11 @@ export default {
   flex-direction: column;
   justify-content: center;
   .location-icon {
-    height: 85px;
-    width: 85px;
+    width: 65px;
+    height: 65px;
     display: flex;
-    border-radius: 100px;
     align-items: center;
+    border-radius: 100px;
     background: #ffffff;
     justify-content: center;
     @media (max-width: 1025px) {

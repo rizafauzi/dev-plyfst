@@ -25,6 +25,7 @@
     <ChatSession 
       :dataState="dataState"
       :addNewMessage="addNewMessage"
+      :toggleRegisterModal="toggleRegisterModal"
     />
 
     <OrientationModal 
@@ -37,6 +38,12 @@
       :toggleRundownModal="toggleRundownModal"
     />
 
+    <RegisterModal 
+      :reloadPage="reloadPage"
+      :showRegisterModal="showRegisterModal" 
+      :toggleRegisterModal="toggleRegisterModal"
+    />
+
   </div>
 </template>
 
@@ -44,6 +51,7 @@
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
 import BackButton from '../../components/BackButton.vue'
+import RegisterModal from '../../components/RegisterModal.vue'
 import ChatSession from '../../components/ChatSession.vue'
 import RundownModal from '../../components/RundownModal.vue'
 import CurrentPlaying from '../../components/CurrentPlaying.vue'
@@ -59,6 +67,7 @@ export default {
     BackButton,
     ChatSession,
     RundownModal,
+    RegisterModal,
     CurrentPlaying,
     NavigationModal,
     OrientationModal,
@@ -68,6 +77,7 @@ export default {
   data() {
 		return {
       conferenceUrl: '',
+      showRegisterModal: true,
       showRundownModal: true,
       showOrientationModal: true,
       currentRoute: 'CONFERENCE ROOM',
@@ -107,12 +117,11 @@ export default {
           break;
       }
     },
-		isDesktop() {
-        if (process.browser) {
-            if (window.innerWidth >= 1024) {
-                return true
-            }
-        }
+    reloadPage() {
+      window.location.reload()
+    },
+    toggleRegisterModal() {
+      this.showRegisterModal = !this.showRegisterModal
     },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal
@@ -122,13 +131,6 @@ export default {
     },
     addNewMessage(newMessage) {
       this.dataState.push(newMessage)
-    },
-    isMobile() {
-      if (process.browser) {
-          if (window.innerWidth <= 768) {
-              return true
-          }
-      }
     },
 	}
 }

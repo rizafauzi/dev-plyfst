@@ -42,7 +42,8 @@
 
     <LiveChatModal 
       :dataState="dataState"
-      :toggleLoginModal="toggleLoginModal"
+      :addNewMessage="addNewMessage"
+      :toggleRegisterModal="toggleRegisterModal"
       :showLiveChatModal="showLiveChatModal" 
       :toggleLiveChatModal="toggleLiveChatModal"
     />
@@ -52,9 +53,10 @@
       :toggleNetworkModal="toggleNetworkModal"
     />
 
-    <LoginModal 
-      :showLoginModal="showLoginModal" 
-      :toggleLoginModal="toggleLoginModal"
+    <RegisterModal 
+      :reloadPage="reloadPage"
+      :showRegisterModal="showRegisterModal" 
+      :toggleRegisterModal="toggleRegisterModal"
     />
     
   </div>
@@ -63,7 +65,7 @@
 <script>
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
-import LoginModal from '../../components/LoginModal.vue'
+import RegisterModal from '../../components/RegisterModal.vue'
 import RundownModal from '../../components/RundownModal.vue'
 import PlayfestLogo from '../../components/PlayfestLogo.vue'
 import NetworkModal from '../../components/NetworkModal.vue'
@@ -75,7 +77,7 @@ export default {
   components: {
     SideBar,
     WatchNow,
-    LoginModal,
+    RegisterModal,
     RundownModal,
     NetworkModal,
     PlayfestLogo,
@@ -91,8 +93,9 @@ export default {
       conferenceUrl: '',
       showModal: false,
       dataState: dummyData,
-      showLoginModal: false,
+      showRegisterModal: true,
       showNetworkModal: true,
+      showRegisterModal: true,
       showRundownModal: true,
       showLiveChatModal: true,
       currentRoute: 'IDEAS AREA',
@@ -133,8 +136,11 @@ export default {
       this.$store.dispatch('currentPlaying/setNetwork', this.networkUrl)
       this.toggleNetworkModal()
     },
-    toggleLoginModal() {
-      this.showLoginModal = !this.showLoginModal
+    reloadPage() {
+      window.location.reload()
+    },
+    toggleRegisterModal() {
+      this.showRegisterModal = !this.showRegisterModal
     },
     toggleNetworkModal() {
       this.showNetworkModal = !this.showNetworkModal
@@ -144,6 +150,10 @@ export default {
     },
     toggleLiveChatModal() {
       this.showLiveChatModal = !this.showLiveChatModal
+    },
+    addNewMessage(newMessage) {
+      this.dataState.push(newMessage)
+      this.$forceUpdate()
     }
 	}
 }

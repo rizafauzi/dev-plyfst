@@ -44,6 +44,7 @@
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
 import BackButton from '../../components/BackButton.vue'
+import RegisterModal from '../../components/RegisterModal.vue'
 import RundownModal from '../../components/RundownModal.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
 import OrientationModal from '../../components/OrientationModal.vue'
@@ -54,6 +55,7 @@ export default {
   components: {
     SideBar,
     WatchNow,
+    RegisterModal,
     BackButton,
     RundownModal,
     NavigationModal,
@@ -63,6 +65,7 @@ export default {
   },
   data() {
 		return {
+      showRegisterModal: true,
       showRundownModal: true,
       showOrientationModal: true,
       currentRoute: 'ART HOUSE',
@@ -96,13 +99,6 @@ export default {
           this.$router.replace({  path: '/home' })
           break;
       }
-    },
-		isDesktop() {
-        if (process.browser) {
-          if (window.innerWidth >= 1024) {
-              return true
-          }
-        }
     },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal

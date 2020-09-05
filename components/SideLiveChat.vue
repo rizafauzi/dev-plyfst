@@ -5,10 +5,10 @@
       <div class="map-wrapper" v-bind:id="[showModal ? 'map-expand' : 'map-collapse']">
           <div class="background">
             <div class="chat-container">
-              <div class="chat-list">
+              <div class="chat-list" ref="msgContainer">
                 <div v-for="(data, index) in dataState" :key="`${index}`" class="chat-each">
                   <h2>{{data.username}}</h2>
-                  <h3>{{data.message}}</h3>
+                  <p>{{data.message}}</p>
                 </div>
               </div>
               <div v-if="isLogin" class="chat-content">
@@ -19,7 +19,7 @@
                     alt="image"
                   >
                 </div>
-                <input class="chat-input" placeholder="Type something..." v-model="newMessage" />
+                <input  @keyup.enter="addMessage" class="chat-input" placeholder="Type something..." v-model="newMessage" />
                 <div @click="addMessage()" class="send-button">
                   <h1>Send</h1>
                 </div>
@@ -70,7 +70,7 @@ export default {
     addNewMessage: {
 			type: Function
 		},
-    toggleLoginModal: {
+    toggleRegisterModal: {
 			type: Function
 		},
   },
@@ -78,10 +78,9 @@ export default {
 		return {
       newMessage: '',
       initial: false,
-      asdasdasd: this.$store.state.user,
-      email: this.$store.state.user.email,
-      isLogin: this.$store.state.user.isLogin,
-      password: this.$store.state.user.password,
+      email: process.browser ? localStorage.username : null,
+      isLogin: process.browser ? localStorage.isLogin : null,
+      password: process.browser ? localStorage.password : null,
 		}
   },
   methods: {
@@ -94,9 +93,16 @@ export default {
     },
     onLogin() {
       this.modalToggle()
-      this.toggleLoginModal()
-      // this.$store.dispatch('user/setOpenLogin', true)
-    }
+      this.toggleRegisterModal()
+    },
+  },
+  watch: {
+    dataState: function() {
+      this.$nextTick(function() {
+        var container = this.$refs.msgContainer;
+        container.scrollTop = container.scrollHeight + 120;
+      });
+    },
   }
 }
 </script>
@@ -149,11 +155,13 @@ export default {
         height: 60%;
       }
       .chat-list {
-        height: 85%;
+        // height: 85%;
+        height: calc(82vh - 20px);
         width: 100%;
         padding-left: 2%;
         // background: #FFFFFF;
         margin-bottom: 2%;
+        overflow: hidden;
         overflow-y: scroll;
         scrollbar-width: none;
         -ms-overflow-style: none;
@@ -281,14 +289,13 @@ h2 {
   }
 }
 
-h3 {
+p {
   font-size: 14px;
   color: #FFFFFF;
   font-weight: bold;
-  line-height: 100%;
+  line-height: 150%;
   font-style: normal;
-  /* margin-top: -5%; */
-  text-align: center;
+  text-align: left;
   letter-spacing: 0.15em;
   font-family: 'Narasi Sans Light';
   filter: drop-shadow(0px 0px 5px #4B2D69);
@@ -350,6 +357,11 @@ span {
 }
 
 .login-button:hover {
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 10px #FFFFFF);
+}
+
+.send-button:hover {
   cursor: pointer;
   filter: drop-shadow(0px 0px 10px #FFFFFF);
 }

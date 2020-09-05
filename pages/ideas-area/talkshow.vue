@@ -25,6 +25,7 @@
     <ChatSession 
       :dataState="dataState"
       :addNewMessage="addNewMessage"
+      :toggleRegisterModal="toggleRegisterModal"
     />
 
     <OrientationModal 
@@ -37,6 +38,12 @@
       :toggleRundownModal="toggleRundownModal"
     />
 
+    <RegisterModal 
+      :reloadPage="reloadPage"
+      :showRegisterModal="showRegisterModal" 
+      :toggleRegisterModal="toggleRegisterModal"
+    />
+
   </div>
 </template>
 
@@ -46,6 +53,7 @@ import WatchNow from '../../components/WatchNow.vue'
 import BackButton from '../../components/BackButton.vue'
 import ChatSession from '../../components/ChatSession.vue'
 import RundownModal from '../../components/RundownModal.vue'
+import RegisterModal from '../../components/RegisterModal.vue'
 import CurrentPlaying from '../../components/CurrentPlaying.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
 import OrientationModal from '../../components/OrientationModal.vue'
@@ -56,6 +64,7 @@ export default {
   components: {
     SideBar,
     WatchNow,
+    RegisterModal,
     BackButton,
     ChatSession,
     RundownModal,
@@ -68,6 +77,7 @@ export default {
   data() {
 		return {
       talkshowUrl: '',
+      showRegisterModal: true,
       showRundownModal: true,
       showOrientationModal: true,
       currentRoute: 'TALKSHOW ROOM',
@@ -107,12 +117,11 @@ export default {
           break;
       }
     },
-		isDesktop() {
-        if (process.browser) {
-            if (window.innerWidth >= 1024) {
-                return true
-            }
-        }
+    reloadPage() {
+      window.location.reload()
+    },
+    toggleRegisterModal() {
+      this.showRegisterModal = !this.showRegisterModal
     },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal

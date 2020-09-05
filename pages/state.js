@@ -1,11 +1,11 @@
 const dataState = [
   {
     username: 'rizafra',
-    message: 'cek realtime  chatting'
+    message: 'cek realtime chatting'
   },
   {
     username: 'asdasd',
-    message: 'woyooo asdasdasd'
+    message: 'CEK PARAGRAPH woyooo asdasdasd woyooo asdasdasd woyooo asdasdasd woyooo asdasdasd woyooo asdasdasd woyooo asdasdasd woyooo asdasdasd woyooo asdasdasd woyooo asdasdasd '
   },
   {
     username: 'holaa',
@@ -37,7 +37,7 @@ const dataState = [
   },
   {
     username: 'zxczxc',
-    message: 'ini tampilan  real time chat nya kak'
+    message: 'ini tampilan real time chat nya kak'
   },
   {
     username: 'asdasd',

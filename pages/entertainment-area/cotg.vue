@@ -25,6 +25,7 @@
     <ChatSession 
       :dataState="dataState"
       :addNewMessage="addNewMessage"
+      :toggleRegisterModal="toggleRegisterModal"
     />
 
     <OrientationModal 
@@ -37,6 +38,12 @@
       :toggleRundownModal="toggleRundownModal"
     />
 
+    <RegisterModal 
+      :reloadPage="reloadPage"
+      :showRegisterModal="showRegisterModal" 
+      :toggleRegisterModal="toggleRegisterModal"
+    />
+
     <StreamingModal />
   </div>
 </template>
@@ -44,6 +51,7 @@
 <script>
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
+import RegisterModal from '../../components/RegisterModal.vue'
 import BackButton from '../../components/BackButton.vue'
 import ChatSession from '../../components/ChatSession.vue'
 import RundownModal from '../../components/RundownModal.vue'
@@ -58,6 +66,7 @@ export default {
   components: {
     SideBar,
     WatchNow,
+    RegisterModal,
     BackButton,
     ChatSession,
     RundownModal,
@@ -70,6 +79,7 @@ export default {
   },
   data() {
 		return {
+      showRegisterModal: true,
       showRundownModal: true,
       showOrientationModal: true,
       currentRoute: 'CREATOR ON THE GROWN',
@@ -107,6 +117,12 @@ export default {
     },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal
+    },
+    reloadPage() {
+      window.location.reload()
+    },
+    toggleRegisterModal() {
+      this.showRegisterModal = !this.showRegisterModal
     },
     toggleOrientationModal() {
       this.showOrientationModal = !this.showOrientationModal

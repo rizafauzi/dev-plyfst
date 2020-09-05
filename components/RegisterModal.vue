@@ -1,87 +1,80 @@
 <template>
   <div>
-    <div v-if="device === 'MOBILE'">
-      <div v-if="showLiveChatModal" class="modal-container">
-        <div class="backdrop" @click="toggleLiveChatModal()" />
-
-        <div class="modal-content" v-bind:id="[showLiveChatModal ? 'show' : 'hide']">
-          <div class="close-container">
-            <div class="close-button" @click="toggleLiveChatModal()">
-              <img 
-                class="icon-close"
-                src="~/static/icon/cancel.png" 
-                alt="image"
-              >
-            </div>
+    <div v-if="showRegisterModal" class="modal-container">
+      <div class="backdrop" @click="toggleRegisterModal()" />
+      <div class="modal-content" v-bind:id="[showRegisterModal ? 'show' : 'hide']">
+        <div class="close-container">
+          <div class="close-button" @click="toggleRegisterModal()">
+            <img 
+              class="icon-close"
+              src="~/static/icon/cancel.png" 
+              alt="image"
+            >
           </div>
-          <div class="modal-description">
-            <h2>
-              All live chat area are on portrait layout. Please rotate your phone for best experience.
-            </h2>
-            <div class="button-container">
-              <div @click="toggleLiveChatModal()" class="modal-button">
-                <h1>Continue</h1>
+        </div>
+        <div class="modal-description">
+          <h2>
+            Join the fun with others by creating or log in into your account!
+          </h2>
+          <div class="button-container">
+              <div v-bind:id="'register'" @click="onRegister()" class="modal-button">
+                <h1>Create New Account</h1>
               </div>
+            <div @click="onLogin()" v-bind:id="'login'" class="modal-button">
+              <h1>Login</h1>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div v-else>
-      <SideLiveChat 
-        :dataState="dataState"
-        :addNewMessage="addNewMessage"
-        :showModal="showLiveChatModal" 
-        :modalToggle="toggleLiveChatModal"
-        :toggleRegisterModal="toggleRegisterModal"
-      />
-    </div>
+    <LoginModal 
+      :reloadPage="reloadPage"
+      :showLoginModal="showLoginModal" 
+      :toggleLoginModal="toggleLoginModal"
+    />
   </div>
-  
-  
 </template>
 
 <script>
-import SideLiveChat from './SideLiveChat.vue'
+import LoginModal from './LoginModal.vue'
 export default {
   components: {
-    SideLiveChat
+    LoginModal
   },
   data() {
     return {
-      device: this.$store.getters['app/getDevice'],
-      currentRoute: 'OFFICIAL ENTERTAINMENT AREA PARTNER',
-      routing: [
-        {title: 'IDEAS AREA', route: '/ideas-area'}, 
-        {title: 'ART AREA', route: '/art-area'}
-      ],
+      showLoginModal: false
     }
   },
   props: {
-    dataState: {
-      type: Array,
-      default() {
-        return []
-      }
-    },
-    toggleRegisterModal: {
-			type: Function
-		},
-    showLiveChatModal: {
+    showRegisterModal: {
 			type: Boolean,
 			default() {
 				return false
 			}
-		},
-    toggleLiveChatModal: {
-			type: Function
-		},
-    addNewMessage: {
+    },
+    reloadPage: {
+      type: Function
+    },
+    toggleRegisterModal: {
 			type: Function
 		},
   },
+	methods: {
+    onRegister() {
+      window.open('https://www.narasi.tv/', '_blank')
+      this.toggleRegisterModal()
+    },
+    onLogin() {
+      this.toggleRegisterModal()
+      this.showLoginModal = !this.showLoginModal
+    },
+    toggleLoginModal() {
+      this.showLoginModal = !this.showLoginModal
+    }
+  },
   mounted() {
-    this.toggleLiveChatModal()
+    this.toggleRegisterModal()
   }
 }
 </script>
@@ -108,7 +101,7 @@ export default {
     background: rgba(75, 45, 105, 0.7);
   }
   .modal-content {
-    width: 40%;
+    width: 30%;
     padding: 2%;
     height: 40%;
     display: flex;
@@ -120,7 +113,8 @@ export default {
     background-image: url('~@/static/img/aurora-background.png');
     animation: fadeIn 600ms cubic-bezier(0.62, 0.01, 0.33, 0.97) 0s 1 normal forwards;
     @media (max-width: 1023px) {
-      height: 70%;
+      width: 60%;
+      height: 50%;
       border-radius: 15px;
     }
     .close-container {
@@ -130,6 +124,7 @@ export default {
         width: 8%;
         height: 80%;
         display: flex;
+        border-radius: 50px;
         align-items: flex-start;
         justify-content: flex-start;
         .icon-close {
@@ -144,34 +139,45 @@ export default {
       display: flex;
       align-items: center;
       border-radius: 20px;
+      padding: 0% 5% 0% 5%;
       flex-direction: column;
       justify-content: center;
       .button-container {
         display: flex;
         width: 100%;
         height: 50%;
-        flex-direction: row;
+        align-items: center;
+        flex-direction: column;
         justify-content: center;
         .modal-button {
-          width: 40%;
+          width: 80%;
+          height: 50%;
           margin: 2%;
-          height: 45%;
           display: flex;
           margin-top: 3%;
-          color: #4B2D69;
           border-radius: 50px;
           align-items: center;
-          background: #AFE3F1;
           justify-content: center;
           @media (max-width: 1023px) {
-            width: 60%;
-            height: 65%;
+            height: 60%;
           }
         }
       }
     }
     
   }
+}
+
+#login {
+  color: #AFE3F1;
+  background: none;
+  border-width: 2px;
+  border-color: #AFE3F1;
+}
+
+#register {
+  color: #4B2D69;
+  background: #AFE3F1;
 }
 
 .modal-button:hover {
@@ -192,20 +198,19 @@ h2 {
   font-style: normal;
   text-align: center;
   font-family: 'Narasi Sans Bold';
-  @media (max-width: 1023px) {
+  @media (max-width: 1100px) {
     font-size: 14px;
   }
 }
 
 h1 {
   font-size: 20px;
-  color: #4B2D69;
   font-weight: bold;
   line-height: 200%;
   font-style: normal;
   text-align: center;
   font-family: 'Narasi Sans Bold';
-  @media (max-width: 1023px) {
+  @media (max-width: 1100px) {
     font-size: 16px;
   }
 }

@@ -42,13 +42,7 @@ export default {
 		},
   },
 	methods: {
-		isDesktop() {
-        if (process.browser) {
-            if (window.innerWidth >= 1024) {
-                return true
-            }
-        }
-    },
+		
     isMobile() {
       if (process.browser) {
           if (window.innerWidth <= 768) {

@@ -75,7 +75,8 @@
 
     <LiveChatModal 
       :dataState="dataState"
-      :toggleLoginModal="toggleLoginModal"
+      :addNewMessage="addNewMessage"
+      :toggleRegisterModal="toggleRegisterModal"
       :showLiveChatModal="showLiveChatModal" 
       :toggleLiveChatModal="toggleLiveChatModal"
     />
@@ -85,9 +86,10 @@
       :toggleRundownModal="toggleRundownModal"
     />
     
-    <LoginModal 
-      :showLoginModal="showLoginModal" 
-      :toggleLoginModal="toggleLoginModal"
+    <RegisterModal 
+      :reloadPage="reloadPage"
+      :showRegisterModal="showRegisterModal" 
+      :toggleRegisterModal="toggleRegisterModal"
     />
 
   </div>
@@ -97,7 +99,7 @@
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
 import BackButton from '../../components/BackButton.vue'
-import LoginModal from '../../components/LoginModal.vue'
+import RegisterModal from '../../components/RegisterModal.vue'
 import PlayfestLogo from '../../components/PlayfestLogo.vue'
 import RundownModal from '../../components/RundownModal.vue'
 import LiveChatModal from '../../components/LiveChatModal.vue'
@@ -110,7 +112,7 @@ export default {
   components: {
     SideBar,
     WatchNow,
-    LoginModal,
+    RegisterModal,
     BackButton,
     RundownModal,
     PlayfestLogo,
@@ -123,8 +125,9 @@ export default {
   data() {
 		return {
       dataState: dummyData,
-      showLoginModal: false,
+      showRegisterModal: true,
       showCinemaModal: true,
+      showRegisterModal: true,
       showRundownModal: true,
       showLiveChatModal: true,
       showModal: this.$store.state.user.onLogin,
@@ -155,13 +158,16 @@ export default {
           this.$router.replace({  path: '/home' })
           break;
         case 'LIVE CHAT':
-          // this.toggleLoginModal()
+          // this.toggleRegisterModal()
           this.toggleLiveChatModal()
           break;
       }
     },
-    toggleLoginModal() {
-      this.showLoginModal = !this.showLoginModal
+    reloadPage() {
+      window.location.reload()
+    },
+    toggleRegisterModal() {
+      this.showRegisterModal = !this.showRegisterModal
     },
     toggleCinemaModal() {
       this.showCinemaModal = !this.showCinemaModal
@@ -172,9 +178,9 @@ export default {
     toggleLiveChatModal() {
       this.showLiveChatModal = !this.showLiveChatModal
     },
-    selectArtArea() {
-      console.log('MASUK CUY')
-    },
+    addNewMessage(newMessage) {
+      this.dataState.push(newMessage)
+    }
   },
   mounted() {
     window.addEventListener('resize', () => {

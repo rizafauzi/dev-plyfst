@@ -59,19 +59,22 @@
 
     <LiveChatModal 
       :dataState="dataState"
-      :toggleLoginModal="toggleLoginModal"
+      :addNewMessage="addNewMessage"
+      :toggleRegisterModal="toggleRegisterModal"
       :showLiveChatModal="showLiveChatModal" 
       :toggleLiveChatModal="toggleLiveChatModal"
     />
 
     <RundownModal 
+      :reloadPage="reloadPage"
       :showRundownModal="showRundownModal" 
       :toggleRundownModal="toggleRundownModal"
     />
 
-    <LoginModal 
-      :showLoginModal="showLoginModal" 
-      :toggleLoginModal="toggleLoginModal"
+    <RegisterModal 
+      :reloadPage="reloadPage"
+      :showRegisterModal="showRegisterModal" 
+      :toggleRegisterModal="toggleRegisterModal"
     />
 
   </div>
@@ -81,7 +84,7 @@
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
 import CotgModal from '../../components/CotgModal.vue'
-import LoginModal from '../../components/LoginModal.vue'
+import RegisterModal from '../../components/RegisterModal.vue'
 import PlayfestLogo from '../../components/PlayfestLogo.vue'
 import RundownModal from '../../components/RundownModal.vue'
 import LiveChatModal from '../../components/LiveChatModal.vue'
@@ -95,7 +98,7 @@ export default {
     SideBar,
     WatchNow,
     CotgModal,
-    LoginModal,
+    RegisterModal,
     RundownModal,
     PlayfestLogo,
     LiveChatModal,
@@ -110,8 +113,9 @@ export default {
       showModal: true,
       showCotgModal: true,
       dataState: dummyData,
-      showLoginModal: false,
+      showRegisterModal: true,
       showMarketModal: true,
+      showRegisterModal: true,
       showRundownModal: true,
       showLiveChatModal: true,
       device: this.$store.getters['app/getDevice'],
@@ -149,14 +153,24 @@ export default {
           break;
       }
     },
+    addNewMessage(newMessage) {
+      this.dataState.push(newMessage)
+      this.$forceUpdate()
+    },
+    reloadPage() {
+      window.location.reload()
+    },
     toggleModal() {
       this.showModal = !this.showModal
     },
     toggleCotgModal() {
       this.showCotgModal = !this.showCotgModal
     },
-    toggleLoginModal() {
-      this.showLoginModal = !this.showLoginModal
+    reloadPage() {
+      window.location.reload()
+    },
+    toggleRegisterModal() {
+      this.showRegisterModal = !this.showRegisterModal
     },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal

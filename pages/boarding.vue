@@ -7,14 +7,14 @@
     <div class="current-playing">
       <iframe 
         class="iframe"
-        src="https://www.youtube.com/embed/p7TeLAGk8wk" 
+        src="https://www.youtube.com/embed/p7TeLAGk8wk?autoplay=1" 
         frameborder="0" 
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen />
     </div>
 
     <nuxt-link to="/home">
-      <div class="getin-container">
+      <div v-if="revealSkip" class="getin-container">
         <h2 class="sm:text-tiny lg:text-xl xl:text-2xl 2xl:text-2xl" id="getin">Skip Video</h2>
       </div>
     </nuxt-link>
@@ -23,6 +23,16 @@
 
 <script>
 export default {
+  data() {
+    return {
+      revealSkip: false
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.revealSkip = true
+    }, 5000 );
+  },
 }
 </script>
 
@@ -55,8 +65,8 @@ export default {
     align-items: center;
     justify-content: center;
     .iframe {
-      width: 60%;
-      height: 60%;
+      width: 100%;
+      height: 100vh;
       filter: drop-shadow(0px 0px 5px #FFFFFF);
       @media (max-width: 1024px) {
         width: 80%;

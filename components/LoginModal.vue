@@ -53,7 +53,10 @@ export default {
 		},
     toggleLoginModal: {
 			type: Function
-		},
+    },
+    reloadPage: {
+      type: Function
+    }
   },
   data() {
 		return {
@@ -68,11 +71,6 @@ export default {
       buttonList: ['Lorem Ipsum', 'Dolor sit', 'consectetur adipiscing elit'],
 		}
   },
-  // mounted() {
-  //   setTimeout(() => {
-  //     this.toggleLoginModal()
-  //   }, 100 );
-  // },
 	methods: {
     async onLogin() {
       let data = { 
@@ -84,35 +82,39 @@ export default {
       }
       this.isLoading = true
 
-      console.log('data: ', data)
-
       setTimeout(() => {
         this.isLoading = false
         this.newUsername === '' ? 
           this.setError.username = 'Please fill username':
           this.setError.username = ''
 
+        this.newUsername !== '' && !this.validateEmail(this.newUsername) ? 
+          this.setError.username = 'Email format is wrong':
+          this.setError.username = ''
+
         this.newPassword === '' ? 
           this.setError.password = 'Please fill password':
           this.setError.password = ''
           
-        if(this.newUsername !== '' && this.newPassword !== '') {
+        if(this.newUsername !== '' && this.validateEmail(this.newUsername) && this.newPassword !== '') {
+          if(process.browser) {
+            var nameReplace = this.newUsername.replace(/@.*$/,"");
+            var username = nameReplace !== this.newUsername ? nameReplace : null;
+
+            localStorage.setItem('username', username)
+            // localStorage.setItem('token', 'ASD133REDSF342===')
+            localStorage.setItem('isLogin', true)
+          }
           this.newUsername = ''
           this.newPassword = ''
-          this.$store.dispatch('user/setOpenLogin', data)
           this.toggleLoginModal()
+          this.reloadPage()
         }
       }, 2000 );
-      
-      // try {
-      //   let res = await this.$auth.loginWith('local', { data })
-      //   this.isLoading = false
-      //   let user = res.data.data.user;
-
-      //   console.log('user: ', user)
-      // } catch (err) {
-      //   this.isLoading = false
-      // }
+    },
+    validateEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
     }
 	}
 }

@@ -21,7 +21,7 @@
     <LiveChatModal 
       :dataState="dataState"
       :addNewMessage="addNewMessage"
-      :toggleLoginModal="toggleLoginModal"
+      :toggleRegisterModal="toggleRegisterModal"
       :showLiveChatModal="showLiveChatModal" 
       :toggleLiveChatModal="toggleLiveChatModal"
     />
@@ -33,9 +33,10 @@
       :toggleRundownModal="toggleRundownModal"
     />
 
-    <LoginModal 
-      :showLoginModal="showLoginModal" 
-      :toggleLoginModal="toggleLoginModal"
+    <RegisterModal 
+      :reloadPage="reloadPage"
+      :showRegisterModal="showRegisterModal" 
+      :toggleRegisterModal="toggleRegisterModal"
     />
     
 		<nuxt-link to="/art-area">
@@ -56,7 +57,7 @@
 <script>
 import SideBar from '../components/SideBar.vue'
 import WatchNow from '../components/WatchNow.vue'
-import LoginModal from '../components/LoginModal.vue'
+import RegisterModal from '../components/RegisterModal.vue'
 import LocationTag from '../components/LocationTag.vue'
 import PlayfestLogo from '../components/PlayfestLogo.vue'
 import RundownModal from '../components/RundownModal.vue'
@@ -68,7 +69,7 @@ export default {
   components: {
     SideBar,
     WatchNow,
-    LoginModal,
+    RegisterModal,
     LocationTag,
 		PlayfestLogo,
     RundownModal,
@@ -79,7 +80,7 @@ export default {
   data() {
     return {
       dataState: dummyData,
-      showLoginModal: false,
+      showRegisterModal: true,
       showRundownModal: true,
       showLiveChatModal: true,
       sideBar: ['RUNDOWN', 'LIVE CHAT'],
@@ -105,8 +106,11 @@ export default {
           break;
       }
     },
-    toggleLoginModal() {
-      this.showLoginModal = !this.showLoginModal
+    reloadPage() {
+      window.location.reload()
+    },
+    toggleRegisterModal() {
+      this.showRegisterModal = !this.showRegisterModal
     },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal
@@ -171,19 +175,19 @@ export default {
 }
 
 #art-area {
-  top: 32%;
-  left: 15%;
+  top: 45%;
+  left: 20%;
 
 }
 
 #entertainment-area {
-  top: 15%;
+  top: 20%;
   left: 35%;
 }
 
 #ideas-area {
-  top: 38%;
-  left: 63%;
+  top: 45%;
+  left: 70%;
 }
 
 span {

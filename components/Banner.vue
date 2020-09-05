@@ -46,20 +46,6 @@ export default {
 		}
 	},
 	methods: {
-		isDesktop() {
-            if (process.browser) {
-                if (window.innerWidth >= 1024) {
-                    return true
-                }
-            }
-        },
-        isMobile() {
-            if (process.browser) {
-                if (window.innerWidth <= 768) {
-                    return true
-                }
-            }
-		},
 		goToStreaming() {
 			if(this.$route.name === 'playfest-series' && this.items.url !== '') {
 				this.$router.replace({
