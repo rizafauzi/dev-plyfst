@@ -49,8 +49,8 @@
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
 import BackButton from '../../components/BackButton.vue'
-import RegisterModal from '../../components/RegisterModal.vue'
 import RundownModal from '../../components/RundownModal.vue'
+import RegisterModal from '../../components/RegisterModal.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
 import OrientationModal from '../../components/OrientationModal.vue'
 import BubbleChatButton from '../../components/BubbleChatButton.vue'
@@ -60,9 +60,9 @@ export default {
   components: {
     SideBar,
     WatchNow,
-    RegisterModal,
     BackButton,
     RundownModal,
+    RegisterModal,
     NavigationModal,
     OrientationModal,
     BubbleChatButton,

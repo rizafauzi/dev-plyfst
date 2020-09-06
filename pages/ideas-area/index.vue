@@ -65,10 +65,10 @@
 <script>
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
-import RegisterModal from '../../components/RegisterModal.vue'
 import RundownModal from '../../components/RundownModal.vue'
 import PlayfestLogo from '../../components/PlayfestLogo.vue'
 import NetworkModal from '../../components/NetworkModal.vue'
+import RegisterModal from '../../components/RegisterModal.vue'
 import LiveChatModal from '../../components/LiveChatModal.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
 import PrimaryMapMarker from '../../components/PrimaryMapMarker.vue'
@@ -77,10 +77,10 @@ export default {
   components: {
     SideBar,
     WatchNow,
-    RegisterModal,
     RundownModal,
     NetworkModal,
     PlayfestLogo,
+    RegisterModal,
     LiveChatModal,
     NavigationModal,
     PrimaryMapMarker

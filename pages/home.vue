@@ -57,10 +57,10 @@
 <script>
 import SideBar from '../components/SideBar.vue'
 import WatchNow from '../components/WatchNow.vue'
-import RegisterModal from '../components/RegisterModal.vue'
 import LocationTag from '../components/LocationTag.vue'
 import PlayfestLogo from '../components/PlayfestLogo.vue'
 import RundownModal from '../components/RundownModal.vue'
+import RegisterModal from '../components/RegisterModal.vue'
 import LiveChatModal from '../components/LiveChatModal.vue'
 import BubbleChatButton from '../components/BubbleChatButton.vue'
 import PrimaryMapMarker from '../components/PrimaryMapMarker.vue'
@@ -69,10 +69,10 @@ export default {
   components: {
     SideBar,
     WatchNow,
-    RegisterModal,
     LocationTag,
 		PlayfestLogo,
     RundownModal,
+    RegisterModal,
     LiveChatModal,
 		PrimaryMapMarker,
 		BubbleChatButton,

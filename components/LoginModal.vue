@@ -1,7 +1,7 @@
 <template>
-  <div v-if="showLoginModal" class="modal-container">
+  <div v-if="showLoginModal" class="login-container">
     <div class="backdrop" @click="toggleLoginModal()" />
-    <div class="modal-content" v-bind:id="[showLoginModal ? 'show' : 'hide']">
+    <div class="login-content" v-bind:id="[showLoginModal ? 'show' : 'hide']">
       <div class="close-container">
         <div class="close-button" @click="toggleLoginModal()">
           <img 
@@ -11,7 +11,7 @@
           >
         </div>
       </div>
-      <div class="modal-description">
+      <div class="login-description">
         <h2 class="sm:text-xxs lg:text-xl">
           Log in
         </h2>
@@ -27,23 +27,19 @@
           <div class="line-shape" />
           <h5 class="error-label sm:text-xxs lg:text-tiny">{{setError.password}}</h5>
         </div>
-        <div class="modal-button" @click="onLogin()">
-          <Loader v-if="isLoading" class="loading"/>
+        <div class="login-button" @click="onLogin()">
+          <progress v-if="isLoading" class="pure-material-progress-circular"/>
           <h1 v-else class="sm:text-xxs lg:text-xl">Login</h1>
         </div>
-        <h2 class="sm:text-xxs lg:text-lg">Forgot Password</h2>
-        <h2 class="sm:text-xxs lg:text-lg">Don't have an account? Register</h2>
+        <h2 @click="onForgotPassword()" id="href" class="sm:text-xxs lg:text-lg">Forgot Password</h2>
+        <h2 @click="onRegister()" id="href" class="sm:text-xxs lg:text-lg">Don't have an account? Register</h2>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Loader from './Loader.vue'
 export default {
-  components: {
-    Loader
-  },
   props: {
     showLoginModal: {
 			type: Boolean,
@@ -72,6 +68,12 @@ export default {
 		}
   },
 	methods: {
+    onForgotPassword() {
+      window.open('https://www.narasi.tv/', '_blank')
+    },
+    onRegister() {
+      window.open('https://www.narasi.tv/', '_blank')
+    },
     async onLogin() {
       let data = { 
         username: this.newUsername, 
@@ -88,9 +90,9 @@ export default {
           this.setError.username = 'Please fill username':
           this.setError.username = ''
 
-        this.newUsername !== '' && !this.validateEmail(this.newUsername) ? 
-          this.setError.username = 'Email format is wrong':
-          this.setError.username = ''
+        if (this.newUsername !== '' && !this.validateEmail(this.newUsername)) {
+          this.setError.username = 'Email format is wrong'
+        }
 
         this.newPassword === '' ? 
           this.setError.password = 'Please fill password':
@@ -110,7 +112,7 @@ export default {
           this.toggleLoginModal()
           this.reloadPage()
         }
-      }, 2000 );
+      }, 1000 );
     },
     validateEmail(email) {
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -118,11 +120,11 @@ export default {
     }
 	}
 }
+
 </script>
 
-<style lang="scss" scoped>
-
-.modal-container {
+<style  lang="scss" scoped>
+.login-container {
   top: 0px;
   left: 0px;
   width: 100%;
@@ -141,7 +143,7 @@ export default {
     position: absolute;
     background: rgba(75, 45, 105, 0.5);
   }
-  .modal-content {
+  .login-content {
     width: 38%;
     padding: 2%;
     height: 70%;
@@ -173,7 +175,7 @@ export default {
         }
       }
     }
-    .modal-description {
+    .login-description {
       height: 90%;
       width: 100%;
       display: flex;
@@ -219,7 +221,7 @@ export default {
           background: #FFFFFF;
         }
       }
-      .modal-button {
+      .login-button {
         width: 60%;
         height: 10%;
         display: flex;
@@ -230,25 +232,34 @@ export default {
         align-items: center;
         background: #AFE3F1;
         justify-content: center;
-        .loading {
-          color: #4B2D69;
-        }
       }
     }
     
   }
 }
 
-.modal-button:hover {
+.login-button:hover {
   cursor: pointer;
-  -webkit-filter: drop-shadow(5px 5px 5px #FFFFFF);
   filter: drop-shadow(0px 0px 5px #FFFFFF);
 }
 
 .close-button:hover {
   cursor: pointer;
-  -webkit-filter: drop-shadow(5px 5px 5px #FFFFFF);
   filter: drop-shadow(0px 0px 5px #FFFFFF);
+}
+
+#href:hover {
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 5px #FFFFFF);
+}
+
+a {
+  color: #FFFFFF;
+  font-weight: bold;
+  line-height: 200%;
+  font-style: normal;
+  text-align: center;
+  font-family: 'Narasi Sans Bold';
 }
 
 h1 {
@@ -309,4 +320,127 @@ h5 {
 	}
 }
 
+
+.pure-material-progress-circular {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 50%;
+    padding: 0.25em;
+    width: 2.5em;
+    height: 2.5em;
+    color: #4B2D69;
+    background-color: transparent;
+    font-size: 16px;
+    overflow: hidden;
+    @media (max-width: 1023px) {
+      width: 2em;
+      height: 2em;
+      font-size: 12px;
+    }
+}
+
+.pure-material-progress-circular::-webkit-progress-bar {
+    background-color: transparent;
+}
+
+/* Indeterminate */
+.pure-material-progress-circular:indeterminate {
+    -webkit-mask-image: linear-gradient(transparent 50%, black 50%), linear-gradient(to right, transparent 50%, black 50%);
+    mask-image: linear-gradient(transparent 50%, black 50%), linear-gradient(to right, transparent 50%, black 50%);
+    animation: pure-material-progress-circular 6s infinite cubic-bezier(0.3, 0.6, 1, 1);
+}
+
+:-ms-lang(x), .pure-material-progress-circular:indeterminate {
+    animation: none;
+}
+
+.pure-material-progress-circular:indeterminate::before,
+.pure-material-progress-circular:indeterminate::-webkit-progress-value {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 0.25em;
+    border: solid 0.25em transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    width: 100% !important;
+    height: 100%;
+    background-color: transparent;
+    animation: pure-material-progress-circular-pseudo 0.75s infinite linear alternate;
+}
+
+.pure-material-progress-circular:indeterminate::-moz-progress-bar {
+    box-sizing: border-box;
+    border: solid 0.25em transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    animation: pure-material-progress-circular-pseudo 0.75s infinite linear alternate;
+}
+
+.pure-material-progress-circular:indeterminate::-ms-fill {
+    animation-name: -ms-ring;
+}
+
+@keyframes pure-material-progress-circular {
+  0% {
+      transform: rotate(0deg);
+  }
+  12.5% {
+      transform: rotate(180deg);
+      animation-timing-function: linear;
+  }
+  25% {
+      transform: rotate(630deg);
+  }
+  37.5% {
+      transform: rotate(810deg);
+      animation-timing-function: linear;
+  }
+  50% {
+      transform: rotate(1260deg);
+  }
+  62.5% {
+      transform: rotate(1440deg);
+      animation-timing-function: linear;
+  }
+  75% {
+      transform: rotate(1890deg);
+  }
+  87.5% {
+      transform: rotate(2070deg);
+      animation-timing-function: linear;
+  }
+  100% {
+      transform: rotate(2520deg);
+  }
+}
+
+@keyframes pure-material-progress-circular-pseudo {
+  0% {
+      transform: rotate(-30deg);
+  }
+  29.4% {
+      border-left-color: transparent;
+  }
+  29.41% {
+      border-left-color: currentColor;
+  }
+  64.7% {
+      border-bottom-color: transparent;
+  }
+  64.71% {
+      border-bottom-color: currentColor;
+  }
+  100% {
+      border-left-color: currentColor;
+      border-bottom-color: currentColor;
+      transform: rotate(225deg);
+  }
+}
 </style>

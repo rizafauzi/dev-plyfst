@@ -64,10 +64,10 @@ export default {
   components: {
     SideBar,
     WatchNow,
-    RegisterModal,
     BackButton,
     ChatSession,
     RundownModal,
+    RegisterModal,
     CurrentPlaying,
     NavigationModal,
     OrientationModal,

@@ -53,9 +53,9 @@
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
 import BackButton from '../../components/BackButton.vue'
-import RegisterModal from '../../components/RegisterModal.vue'
 import ChatSession from '../../components/ChatSession.vue'
 import RundownModal from '../../components/RundownModal.vue'
+import RegisterModal from '../../components/RegisterModal.vue'
 import CurrentPlaying from '../../components/CurrentPlaying.vue'
 import StreamingModal from '../../components/StreamingModal.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
@@ -67,10 +67,10 @@ export default {
   components: {
     SideBar,
     WatchNow,
-    RegisterModal,
     BackButton,
     ChatSession,
     RundownModal,
+    RegisterModal,
     CurrentPlaying,
     StreamingModal,
     NavigationModal,

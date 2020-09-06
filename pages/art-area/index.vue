@@ -95,13 +95,14 @@
   </div>
 </template>
 
+
 <script>
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
 import BackButton from '../../components/BackButton.vue'
-import RegisterModal from '../../components/RegisterModal.vue'
 import PlayfestLogo from '../../components/PlayfestLogo.vue'
 import RundownModal from '../../components/RundownModal.vue'
+import RegisterModal from '../../components/RegisterModal.vue'
 import LiveChatModal from '../../components/LiveChatModal.vue'
 import PlayCinemaModal from '../../components/PlayCinemaModal.vue'
 import NavigationModal from '../../components/NavigationModal.vue'
@@ -112,10 +113,10 @@ export default {
   components: {
     SideBar,
     WatchNow,
-    RegisterModal,
     BackButton,
     RundownModal,
     PlayfestLogo,
+    RegisterModal,
     LiveChatModal,
     PlayCinemaModal,
     NavigationModal,
@@ -149,6 +150,16 @@ export default {
 		}
 	},
 	methods: {
+// <RundownModal 
+//       :showRundownModal="showRundownModal" 
+//       :toggleRundownModal="toggleRundownModal"
+//     />
+    
+//     <RegisterModal 
+//       :reloadPage="reloadPage"
+//       :showRegisterModal="showRegisterModal" 
+//       :toggleRegisterModal="toggleRegisterModal"
+//     />
     handleAction(action) {
       switch(action) {
         case 'RUNDOWN':
@@ -164,7 +175,7 @@ export default {
       }
     },
     reloadPage() {
-      window.location.reload()
+      // window.location.reload()
     },
     toggleRegisterModal() {
       this.showRegisterModal = !this.showRegisterModal

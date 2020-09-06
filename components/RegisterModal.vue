@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-if="showRegisterModal" class="modal-container">
+    <div v-if="showRegisterModal" class="register-container">
       <div class="backdrop" @click="toggleRegisterModal()" />
-      <div class="modal-content" v-bind:id="[showRegisterModal ? 'show' : 'hide']">
+      <div class="register-content" v-bind:id="[showRegisterModal ? 'show' : 'hide']">
         <div class="close-container">
           <div class="close-button" @click="toggleRegisterModal()">
             <img 
@@ -12,15 +12,15 @@
             >
           </div>
         </div>
-        <div class="modal-description">
+        <div class="register-description">
           <h2>
             Join the fun with others by creating or log in into your account!
           </h2>
           <div class="button-container">
-              <div v-bind:id="'register'" @click="onRegister()" class="modal-button">
+              <div v-bind:id="'register'" @click="onRegister()" class="register-button">
                 <h1>Create New Account</h1>
               </div>
-            <div @click="onLogin()" v-bind:id="'login'" class="modal-button">
+            <div @click="onLogin()" v-bind:id="'login'" class="register-button">
               <h1>Login</h1>
             </div>
           </div>
@@ -77,11 +77,13 @@ export default {
     this.toggleRegisterModal()
   }
 }
+
+
+
 </script>
 
-<style lang="scss" scoped>
-
-.modal-container {
+<style lang="scss" scoped >
+.register-container {
   top: 0px;
   left: 0px;
   width: 100%;
@@ -100,7 +102,7 @@ export default {
     position: absolute;
     background: rgba(75, 45, 105, 0.7);
   }
-  .modal-content {
+  .register-content {
     width: 30%;
     padding: 2%;
     height: 40%;
@@ -134,7 +136,7 @@ export default {
         }
       }
     }
-    .modal-description {
+    .register-description {
       height: 90%;
       display: flex;
       align-items: center;
@@ -149,7 +151,7 @@ export default {
         align-items: center;
         flex-direction: column;
         justify-content: center;
-        .modal-button {
+        .register-button {
           width: 80%;
           height: 50%;
           margin: 2%;
@@ -180,7 +182,7 @@ export default {
   background: #AFE3F1;
 }
 
-.modal-button:hover {
+.register-button:hover {
   cursor: pointer;
   filter: drop-shadow(0px 0px 15px #FFFFFF);
 }
@@ -234,5 +236,4 @@ h1 {
     opacity: 1;
 	}
 }
-
 </style>

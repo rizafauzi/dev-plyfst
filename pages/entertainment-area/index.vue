@@ -84,9 +84,9 @@
 import SideBar from '../../components/SideBar.vue'
 import WatchNow from '../../components/WatchNow.vue'
 import CotgModal from '../../components/CotgModal.vue'
-import RegisterModal from '../../components/RegisterModal.vue'
 import PlayfestLogo from '../../components/PlayfestLogo.vue'
 import RundownModal from '../../components/RundownModal.vue'
+import RegisterModal from '../../components/RegisterModal.vue'
 import LiveChatModal from '../../components/LiveChatModal.vue'
 import PlayStageModal from '../../components/PlayStageModal.vue'
 import TheMarketModal from '../../components/TheMarketModal.vue'
@@ -98,9 +98,9 @@ export default {
     SideBar,
     WatchNow,
     CotgModal,
-    RegisterModal,
     RundownModal,
     PlayfestLogo,
+    RegisterModal,
     LiveChatModal,
     TheMarketModal,
     PlayStageModal,
