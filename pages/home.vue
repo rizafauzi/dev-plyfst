@@ -38,6 +38,11 @@
       :showRegisterModal="showRegisterModal" 
       :toggleRegisterModal="toggleRegisterModal"
     />
+
+    <OrientationWarning
+      :showOrientationWarning="showOrientationWarning"
+      :toggleOrientationWarning="toggleOrientationWarning"
+    />
     
 		<nuxt-link to="/art-area">
       <LocationTag :areaTitle="'ART AREA'" id="art-area"/>
@@ -64,6 +69,7 @@ import RegisterModal from '../components/RegisterModal.vue'
 import LiveChatModal from '../components/LiveChatModal.vue'
 import BubbleChatButton from '../components/BubbleChatButton.vue'
 import PrimaryMapMarker from '../components/PrimaryMapMarker.vue'
+import OrientationWarning from '../components/OrientationWarning.vue'
 import dummyData from './state'
 export default {
   components: {
@@ -75,14 +81,17 @@ export default {
     RegisterModal,
     LiveChatModal,
 		PrimaryMapMarker,
-		BubbleChatButton,
+    BubbleChatButton,
+    OrientationWarning
   },
   data() {
     return {
       dataState: dummyData,
-      showRegisterModal: true,
       showRundownModal: true,
+      showRegisterModal: true,
       showLiveChatModal: true,
+      showOrientationWarning: true,
+      deviceOrientation: 'landscape',
       sideBar: ['RUNDOWN', 'LIVE CHAT'],
       device: this.$store.getters['app/getDevice']
     }
@@ -109,14 +118,17 @@ export default {
     reloadPage() {
       window.location.reload()
     },
-    toggleRegisterModal() {
-      this.showRegisterModal = !this.showRegisterModal
-    },
     toggleRundownModal() {
       this.showRundownModal = !this.showRundownModal
     },
+    toggleRegisterModal() {
+      this.showRegisterModal = !this.showRegisterModal
+    },
     toggleLiveChatModal() {
       this.showLiveChatModal = !this.showLiveChatModal
+    },
+    toggleOrientationWarning() {
+      this.showOrientationWarning = !this.showOrientationWarning
     },
     addNewMessage(newMessage) {
       this.dataState.push(newMessage)
@@ -126,17 +138,13 @@ export default {
     window.addEventListener('resize', () => {
       let vh = window.innerHeight * 0.01;
     })
-    // const orientation = window.screen.orientation.type
-    // if (orientation === "portrait-primary") {
-    //     let inHeight = window.innerWidth * 0.01;
-    //     let inWidth = window.innerWidth * 0.01;
-    //     document.documentElement.style.setProperty('--vh', `${vh}px`);
-    //     document.documentElement.style.setProperty('--vh', `${vh}px`);
-    //   } else if (orientation === "landscape-primary") {
-    //     let inHeight = window.innerHeight * 0.01;
-    //     let inWidth = window.innerHeight * 0.01;
-    //     document.documentElement.style.setProperty('--vh', `${vh}px`);
-    //   }
+    this.showOrientationWarning = screen.height > screen.width ? true : false
+
+    let _this = this
+    window.addEventListener('orientationchange', doOnOrientationChange);
+    function doOnOrientationChange() {
+      _this.showOrientationWarning = screen.height > screen.width ? true : false
+    }
   }
 }
 </script>
