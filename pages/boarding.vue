@@ -13,6 +13,11 @@
         allowfullscreen />
     </div>
 
+    <OrientationWarning 
+      :showOrientationWarning="showOrientationWarning"
+      :toggleOrientationWarning="toggleOrientationWarning"
+    />
+
     <nuxt-link to="/home">
       <div v-if="revealSkip" class="getin-container">
         <h2 class="sm:text-tiny lg:text-xl xl:text-2xl 2xl:text-2xl" id="getin">Skip Video</h2>
@@ -22,16 +27,41 @@
 </template>
 
 <script>
+import OrientationWarning from '../components/OrientationWarning.vue'
 export default {
+  components: {
+    OrientationWarning
+  },
   data() {
     return {
-      revealSkip: false
+      revealSkip: false,
+      showOrientationWarning: true
     }
+  },
+  methods: {
+    toggleOrientationWarning() {
+      this.showOrientationWarning = !this.showOrientationWarning
+    },
   },
   mounted() {
     setTimeout(() => {
       this.revealSkip = true
     }, 5000 );
+
+    let vh = window.innerHeight * 0.01;
+    window.addEventListener('resize', () => {
+      let sec = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${sec}px`);
+    })
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+   
+
+    let _this = this
+    this.showOrientationWarning = screen.height > screen.width ? true : false
+    window.addEventListener('orientationchange', doOnOrientationChange);
+    function doOnOrientationChange() {
+      _this.showOrientationWarning = screen.height > screen.width ? true : false
+    }
   },
 }
 </script>
@@ -66,22 +96,13 @@ export default {
     justify-content: center;
     .iframe {
       width: 100%;
-      height: 100vh;
+      position: absolute;
+      bottom: 0;
+      height: calc(var(--vh, 1vh) * 100);
       filter: drop-shadow(0px 0px 5px #FFFFFF);
-      @media (max-width: 1024px) {
-        width: 80%;
-        height: 60%;
-        filter: drop-shadow(0px 0px 3px #FFFFFF);
-      }
-      @media (max-width: 1000px) {
-        width: 60%;
-        height: 60%;
-        filter: drop-shadow(0px 0px 3px #FFFFFF);
-      }
     }
   }
   .getin-container {
-    bottom: 6%;
     right: 4%;
     width: 20%;
     padding: 1%;
@@ -92,6 +113,7 @@ export default {
     align-items: center;
     background: #AFE3F1;
     justify-content: center;
+    top: calc(var(--vh, 1vh) * 85);
   }
 	@media (max-width: 1023px) {
 		padding: 0;
@@ -117,7 +139,6 @@ span {
 }
 
 h2 {
-  /* font-size: 18px; */
   color: #4B2D69;
   font-weight: normal;
   font-style: normal;

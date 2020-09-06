@@ -13,10 +13,20 @@
           </div>
         </div>
         <div class="modal-description">
-          <h2>Rotate your phone to landscape mode for best experience.</h2>
+          <h2>You are now entering landscape mode.</h2>
+          <h2>{{deviceOrientation}}</h2>
+          <br>
+          <h2>Please enable the auto rotate function and rotate your phone for better experience.</h2>
+          <div class="icon-rotate">
+            <img 
+              class="img-rotate"
+              src="~/static/icon/rotate.png" 
+              alt="image"
+            >
+          </div>
           <div class="button-container">
             <div class="modal-button">
-              <nuxt-link to="/home">
+              <nuxt-link to="/boarding">
                 <h1>Continue</h1>
               </nuxt-link>
             </div>
@@ -57,6 +67,7 @@
 export default {
   data() {
     return {
+      deviceOrientation: 'landscape',
       device: this.$store.getters['app/getDevice']
     }
   },
@@ -72,6 +83,13 @@ export default {
 	methods: {},
   mounted() {
     this.toggleRotateModal()
+    this.deviceOrientation = screen.height > screen.width ? 'portrait' : 'landscape'
+
+    let _this = this
+    window.addEventListener('orientationchange', doOnOrientationChange);
+    function doOnOrientationChange() {
+      _this.deviceOrientation = screen.height > screen.width ? 'portrait' : 'landscape'
+    }
   }
 }
 </script>
@@ -110,7 +128,7 @@ export default {
     animation: fadeIn 600ms cubic-bezier(0.62, 0.01, 0.33, 0.97) 0s 1 normal forwards;
     @media (max-width: 1023px) {
       width: 60%;
-      height: 40%;
+      height: 60%;
       border-radius: 15px;
     }
     .close-container {
@@ -138,16 +156,35 @@ export default {
       padding: 0% 5% 0% 5%;
       flex-direction: column;
       justify-content: center;
+      .icon-rotate {
+        margin: 10%;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        
+        border-radius: 100px;
+        justify-content: center;
+        background: rgba(44, 38, 148, 0.4);
+        .img-rotate {
+          width: 80px;
+          height: 80px;
+          object-fit: contain; 
+          animation: spinImg 2000ms cubic-bezier(0.62, 0.01, 0.33, 0.97) 100ms infinite normal forwards; 
+        }
+      }
       .button-container {
         width: 100%;
-        height: 50%;
+        height: 15%;
         display: flex;
+        margin-bottom: 10%;
+        align-items: center;
         flex-direction: row;
         justify-content: center;
         .modal-button {
           width: 60%;
           margin: 2%;
-          height: 40%;
+          height: 100%;
           display: flex;
           margin-top: 3%;
           border-radius: 50px;
@@ -269,7 +306,7 @@ h2 {
   font-size: 18px;
   color: #FFFFFF;
   font-weight: bold;
-  line-height: 200%;
+  line-height: 130%;
   font-style: normal;
   text-align: center;
   font-family: 'Narasi Sans Bold';
@@ -287,6 +324,25 @@ h1 {
   font-family: 'Narasi Sans Bold';
   @media (max-width: 1100px) {
     font-size: 16px;
+  }
+}
+
+@keyframes spinImg {
+  0% {
+    transform: rotate(0deg);
+    // opacity: 0;
+  }
+  25% {
+    transform: rotate(0deg);
+    // opacity: 1;
+  }
+  75% {
+    transform: rotate(90deg);
+    // opacity: 1;
+  }
+  100% {
+    transform: rotate(90deg);
+    // opacity: 1;
   }
 }
 
